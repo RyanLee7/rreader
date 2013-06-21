@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
     <string name="activity_resolver_use_always">"始终"</string>
     <string name="activity_resolver_use_once">"仅此一次"</string>
     <string name="candidates_style">"候选"</string>
@@ -31,4 +33,8 @@
     <string name="time_picker_increment_minute_button">"增大分钟值"</string>
     <string name="time_picker_increment_set_pm_button">"设置下午时间"</string>
     <string name="whichApplication">"选择要使用的应用："</string>
+    <string name="back_button_label">"上一步"</string>
+    <string name="next_button_label">"下一步"</string>
+    <string name="skip_button_label">"跳过"</string>
+
 </resources>
