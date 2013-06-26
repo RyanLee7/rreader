@@ -17,6 +17,7 @@
 
 package org.quantumbadger.redreader.activities;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -25,10 +26,16 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
+import cn.guomob.android.GuomobAdView;
+import cn.guomob.android.OnBannerAdListener;
+
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+
 import org.holoeverywhere.app.AlertDialog;
 import org.holoeverywhere.preference.PreferenceManager;
 import org.holoeverywhere.preference.SharedPreferences;
@@ -40,6 +47,7 @@ import org.quantumbadger.redreader.account.RedditAccountManager;
 import org.quantumbadger.redreader.adapters.MainMenuSelectionListener;
 import org.quantumbadger.redreader.common.Constants;
 import org.quantumbadger.redreader.common.General;
+import org.quantumbadger.redreader.common.Globals;
 import org.quantumbadger.redreader.common.LinkHandler;
 import org.quantumbadger.redreader.common.PrefsUtility;
 import org.quantumbadger.redreader.fragments.*;
@@ -52,15 +60,14 @@ import org.quantumbadger.redreader.views.RedditPostView;
 
 import java.util.UUID;
 
-public class MainActivity extends RefreshableActivity
-		implements MainMenuSelectionListener,
-		RedditAccountChangeListener,
+@SuppressLint("NewApi")
+public class MainActivity extends RefreshableActivity implements
+		MainMenuSelectionListener, RedditAccountChangeListener,
 		RedditPostView.PostSelectionListener,
 		SharedPreferences.OnSharedPreferenceChangeListener,
 		OptionsMenuUtility.OptionsMenuSubredditsListener,
 		OptionsMenuUtility.OptionsMenuPostsListener,
-		OptionsMenuUtility.OptionsMenuCommentsListener,
-		SessionChangeListener {
+		OptionsMenuUtility.OptionsMenuCommentsListener, SessionChangeListener {
 
 	private boolean twoPane;
 
@@ -76,17 +83,26 @@ public class MainActivity extends RefreshableActivity
 
 	private SharedPreferences sharedPreferences;
 
+	/* 使用广告 */
+
+	GuomobAdView m_adView;
+	RelativeLayout m_Relative;
+
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 
+		// 应用主题
 		PrefsUtility.applyTheme(this);
 
 		OptionsMenuUtility.fixActionBar(this, getString(R.string.app_name));
 
 		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		// 注册监听
 		sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
-		final boolean solidblack = PrefsUtility.appearance_solidblack(this, sharedPreferences)
+		// 获取设置中关于黑色字体的选项，同时判断当前应用的主题是不是夜晚主题
+		final boolean solidblack = PrefsUtility.appearance_solidblack(this,
+				sharedPreferences)
 				&& PrefsUtility.appearance_theme(this, sharedPreferences) == PrefsUtility.AppearanceTheme.NIGHT;
 
 		super.onCreate(savedInstanceState);
@@ -95,15 +111,18 @@ public class MainActivity extends RefreshableActivity
 
 		final View layout;
 
-		if(twoPane)
+		// 判断布局
+		if (twoPane)
 			layout = getLayoutInflater().inflate(R.layout.main_double);
 		else
 			layout = getLayoutInflater().inflate(R.layout.main_single);
 
-		if(solidblack) layout.setBackgroundColor(Color.BLACK);
+		if (solidblack)
+			layout.setBackgroundColor(Color.BLACK);
 
 		setContentView(layout);
 
+		// 更新界面
 		doRefresh(RefreshableFragment.MAIN, false);
 
 		RedditAccountManager.getInstance(this).addUpdateListener(this);
@@ -111,37 +130,41 @@ public class MainActivity extends RefreshableActivity
 		PackageInfo pInfo = null;
 		try {
 			pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-		} catch(PackageManager.NameNotFoundException e) {
+		} catch (PackageManager.NameNotFoundException e) {
 			throw new RuntimeException(e);
 		}
 
 		final int appVersion = pInfo.versionCode;
 
-		if(!sharedPreferences.contains("firstRunMessageShown")) {
+		if (!sharedPreferences.contains("firstRunMessageShown")) {
 
 			new AlertDialog.Builder(this)
 					.setTitle(R.string.firstrun_login_title)
 					.setMessage(R.string.firstrun_login_message)
 					.setPositiveButton(R.string.firstrun_login_button_now,
 							new DialogInterface.OnClickListener() {
-								public void onClick(final DialogInterface dialog, final int which) {
-									new AccountListDialog().show(MainActivity.this);
+								public void onClick(
+										final DialogInterface dialog,
+										final int which) {
+									new AccountListDialog()
+											.show(MainActivity.this);
 								}
-							})
-					.setNegativeButton(R.string.accounts_anon, null)
+							}).setNegativeButton(R.string.accounts_anon, null)
 					.show();
 
 			final SharedPreferences.Editor edit = sharedPreferences.edit();
 			edit.putString("firstRunMessageShown", "true");
 			edit.commit();
 
-		} else if(sharedPreferences.contains("lastVersion")) {
+		} else if (sharedPreferences.contains("lastVersion")) {
 
-			if(sharedPreferences.getInt("lastVersion", 0) != appVersion) {
+			if (sharedPreferences.getInt("lastVersion", 0) != appVersion) {
 
-				General.quickToast(this, "Updated to version " + pInfo.versionName);
+				General.quickToast(this, "Updated to version "
+						+ pInfo.versionName);
 
-				sharedPreferences.edit().putInt("lastVersion", appVersion).commit();
+				sharedPreferences.edit().putInt("lastVersion", appVersion)
+						.commit();
 				ChangelogDialog.newInstance().show(this);
 			}
 
@@ -149,81 +172,106 @@ public class MainActivity extends RefreshableActivity
 			sharedPreferences.edit().putInt("lastVersion", appVersion).commit();
 			ChangelogDialog.newInstance().show(this);
 		}
+		Globals.NETWORK_ENABLE = Globals.isConnect(this);// 判断网络
+		if (Globals.AD_MODE && Globals.NETWORK_ENABLE) {
+			// 有网络的情况下才加载广告
+			initADView();
+		}
 	}
 
-	public void onSelected(final MainMenuFragment.MainMenuAction type, final String name) {
+	public void onSelected(final MainMenuFragment.MainMenuAction type,
+			final String name) {
 
-		switch(type) {
+		switch (type) {
 
-			case FRONTPAGE:
-				onSelected(new RedditSubreddit("/", getString(R.string.mainmenu_frontpage), true)); // TODO constant
-				break;
+		case FRONTPAGE:
+			onSelected(new RedditSubreddit("/",
+					getString(R.string.mainmenu_frontpage), true)); // TODO
+																	// constant
+			break;
 
-			case ALL:
-				onSelected(new RedditSubreddit("/r/all/", getString(R.string.mainmenu_all), true)); // TODO constant
-				break;
+		case ALL:
+			onSelected(new RedditSubreddit("/r/all/",
+					getString(R.string.mainmenu_all), true)); // TODO constant
+			break;
 
-			case SAVED:
-				onSelected(new RedditSubreddit(Constants.Reddit.getSavedPath(this), getString(R.string.mainmenu_saved), false));
-				break;
+		case SAVED:
+			onSelected(new RedditSubreddit(Constants.Reddit.getSavedPath(this),
+					getString(R.string.mainmenu_saved), false));
+			break;
 
-			case HIDDEN:
-				onSelected(new RedditSubreddit(Constants.Reddit.getHiddenPath(this), getString(R.string.mainmenu_hidden), false));
-				break;
+		case HIDDEN:
+			onSelected(new RedditSubreddit(
+					Constants.Reddit.getHiddenPath(this),
+					getString(R.string.mainmenu_hidden), false));
+			break;
 
-			case LIKED:
-				onSelected(new RedditSubreddit(Constants.Reddit.getLikedPath(this), getString(R.string.mainmenu_upvoted), false));
-				break;
+		case LIKED:
+			onSelected(new RedditSubreddit(Constants.Reddit.getLikedPath(this),
+					getString(R.string.mainmenu_upvoted), false));
+			break;
 
-			case PROFILE:
-				UserProfileDialog.newInstance(RedditAccountManager.getInstance(this).getDefaultAccount().username).show(this);
-				break;
+		case PROFILE:
+			UserProfileDialog
+					.newInstance(
+							RedditAccountManager.getInstance(this)
+									.getDefaultAccount().username).show(this);
+			break;
 
-			case CUSTOM: {
+		case CUSTOM: {
 
-				final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-				final LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.dialog_editbox);
-				final EditText editText = (EditText)layout.findViewById(R.id.dialog_editbox_edittext);
+			final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(
+					this);
+			final LinearLayout layout = (LinearLayout) getLayoutInflater()
+					.inflate(R.layout.dialog_editbox);
+			final EditText editText = (EditText) layout
+					.findViewById(R.id.dialog_editbox_edittext);
 
-				editText.requestFocus();
+			editText.requestFocus();
 
-				alertBuilder.setView(layout);
-				alertBuilder.setTitle(R.string.mainmenu_custom);
+			alertBuilder.setView(layout);
+			alertBuilder.setTitle(R.string.mainmenu_custom);
 
-				alertBuilder.setPositiveButton(R.string.dialog_go, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
+			alertBuilder.setPositiveButton(R.string.dialog_go,
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
 
-						final String name = editText.getText().toString().toLowerCase().trim();
+							final String name = editText.getText().toString()
+									.toLowerCase().trim();
 
-						if(!name.matches("[\\w\\+]+")) {
-							General.quickToast(MainActivity.this, R.string.mainmenu_custom_invalid_name);
-						} else {
-							final RedditSubreddit subreddit = new RedditSubreddit("/r/" + name, "/r/" + name, true);
-							onSelected(subreddit);
+							if (!name.matches("[\\w\\+]+")) {
+								General.quickToast(MainActivity.this,
+										R.string.mainmenu_custom_invalid_name);
+							} else {
+								final RedditSubreddit subreddit = new RedditSubreddit(
+										"/r/" + name, "/r/" + name, true);
+								onSelected(subreddit);
+							}
 						}
-					}
-				});
+					});
 
-				alertBuilder.setNegativeButton(R.string.dialog_cancel, null);
+			alertBuilder.setNegativeButton(R.string.dialog_cancel, null);
 
-				final AlertDialog alertDialog = alertBuilder.create();
-				alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-				alertDialog.show();
+			final AlertDialog alertDialog = alertBuilder.create();
+			alertDialog.getWindow().setSoftInputMode(
+					WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+			alertDialog.show();
 
-				break;
-			}
+			break;
+		}
 
-			case INBOX:
-				InboxListingFragment.newInstance().show(this);
-				break;
+		case INBOX:
+			InboxListingFragment.newInstance().show(this);
+			break;
 		}
 	}
 
 	public void onSelected(final RedditSubreddit subreddit) {
 
-		if(twoPane) {
+		if (twoPane) {
 
-			postListingController = new PostListingControllerSubreddit(subreddit);
+			postListingController = new PostListingControllerSubreddit(
+					subreddit);
 			requestRefresh(RefreshableFragment.POSTS, false);
 
 		} else {
@@ -237,25 +285,30 @@ public class MainActivity extends RefreshableActivity
 		requestRefresh(RefreshableFragment.ALL, false);
 	}
 
+	@SuppressLint("NewApi")
 	@Override
-	protected void doRefresh(final RefreshableFragment which, final boolean force) {
+	protected void doRefresh(final RefreshableFragment which,
+			final boolean force) {
 
-		if(which == RefreshableFragment.MAIN_RELAYOUT) {
+		if (which == RefreshableFragment.MAIN_RELAYOUT) {
 
-			final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+			final FragmentTransaction transaction = getSupportFragmentManager()
+					.beginTransaction();
 
-			if(postListingFragment != null) {
+			if (postListingFragment != null) {
 				postListingFragment.cancel();
 				transaction.remove(postListingFragment);
 			}
 
-			if(commentListingFragment != null) {
+			if (commentListingFragment != null) {
 				commentListingFragment.cancel();
 				transaction.remove(commentListingFragment);
 			}
 
 			transaction.commit();
-			getSupportFragmentManager().executePendingTransactions(); // may not be necessary...
+			getSupportFragmentManager().executePendingTransactions(); // may not
+																		// be
+																		// necessary...
 
 			mainMenuFragment = null;
 			postListingFragment = null;
@@ -263,7 +316,7 @@ public class MainActivity extends RefreshableActivity
 
 			twoPane = General.isTablet(this, sharedPreferences);
 
-			if(twoPane)
+			if (twoPane)
 				setContentView(R.layout.main_double);
 			else
 				setContentView(R.layout.main_single);
@@ -274,39 +327,54 @@ public class MainActivity extends RefreshableActivity
 			return;
 		}
 
-		if(twoPane) {
+		if (twoPane) {
 
-			final int postContainer = isMenuShown ? R.id.main_right_frame : R.id.main_left_frame;
+			final int postContainer = isMenuShown ? R.id.main_right_frame
+					: R.id.main_left_frame;
 
-			if(isMenuShown && (which == RefreshableFragment.ALL || which == RefreshableFragment.MAIN)) {
+			if (isMenuShown
+					&& (which == RefreshableFragment.ALL || which == RefreshableFragment.MAIN)) {
 				mainMenuFragment = MainMenuFragment.newInstance(force);
-				final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-				transaction.replace(R.id.main_left_frame, mainMenuFragment, "main_fragment");
+				final FragmentTransaction transaction = getSupportFragmentManager()
+						.beginTransaction();
+				transaction.replace(R.id.main_left_frame, mainMenuFragment,
+						"main_fragment");
 				transaction.commit();
 			}
 
-			if(postListingController != null && (which == RefreshableFragment.ALL || which == RefreshableFragment.POSTS)) {
-				if(force && postListingFragment != null) postListingFragment.cancel();
+			if (postListingController != null
+					&& (which == RefreshableFragment.ALL || which == RefreshableFragment.POSTS)) {
+				if (force && postListingFragment != null)
+					postListingFragment.cancel();
 				postListingFragment = postListingController.get(force);
-				final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-				transaction.replace(postContainer, postListingFragment, "posts_fragment");
+				final FragmentTransaction transaction = getSupportFragmentManager()
+						.beginTransaction();
+				transaction.replace(postContainer, postListingFragment,
+						"posts_fragment");
 				transaction.commit();
 			}
 
-			if(commentListingController != null && (which == RefreshableFragment.ALL || which == RefreshableFragment.COMMENTS)) {
-				if(force && commentListingFragment != null) commentListingFragment.cancel();
+			if (commentListingController != null
+					&& (which == RefreshableFragment.ALL || which == RefreshableFragment.COMMENTS)) {
+				if (force && commentListingFragment != null)
+					commentListingFragment.cancel();
 				commentListingFragment = commentListingController.get(force);
-				final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-				transaction.replace(R.id.main_right_frame, commentListingFragment, "comments_fragment");
+				final FragmentTransaction transaction = getSupportFragmentManager()
+						.beginTransaction();
+				transaction.replace(R.id.main_right_frame,
+						commentListingFragment, "comments_fragment");
 				transaction.commit();
 			}
 
 		} else {
 
-			if(which == RefreshableFragment.ALL || which == RefreshableFragment.MAIN) {
+			if (which == RefreshableFragment.ALL
+					|| which == RefreshableFragment.MAIN) {
 				mainMenuFragment = MainMenuFragment.newInstance(force);
-				final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-				transaction.replace(R.id.main_single_frame, mainMenuFragment, "main_fragment");
+				final FragmentTransaction transaction = getSupportFragmentManager()
+						.beginTransaction();
+				transaction.replace(R.id.main_single_frame, mainMenuFragment,
+						"main_fragment");
 				transaction.commit();
 			}
 		}
@@ -317,17 +385,20 @@ public class MainActivity extends RefreshableActivity
 	@Override
 	public void onBackPressed() {
 
-		if(!twoPane || isMenuShown) {
+		if (!twoPane || isMenuShown) {
 			finish();
 			return;
 		}
 
 		isMenuShown = true;
 
-		final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+		final FragmentTransaction transaction = getSupportFragmentManager()
+				.beginTransaction();
 
-		mainMenuFragment = MainMenuFragment.newInstance(false); // TODO preserve position
-		postListingFragment = postListingController.get(false); // TODO preserve position
+		mainMenuFragment = MainMenuFragment.newInstance(false); // TODO preserve
+																// position
+		postListingFragment = postListingController.get(false); // TODO preserve
+																// position
 
 		transaction.replace(R.id.main_left_frame, mainMenuFragment);
 		transaction.replace(R.id.main_right_frame, postListingFragment);
@@ -340,11 +411,12 @@ public class MainActivity extends RefreshableActivity
 
 	public void onPostCommentsSelected(final RedditPreparedPost post) {
 
-		if(twoPane) {
+		if (twoPane) {
 
-			commentListingController = new CommentListingController(post.idAlone, this);
+			commentListingController = new CommentListingController(
+					post.idAlone, this);
 
-			if(isMenuShown) {
+			if (isMenuShown) {
 
 				final FragmentManager fm = getSupportFragmentManager();
 
@@ -353,8 +425,11 @@ public class MainActivity extends RefreshableActivity
 
 				final FragmentTransaction transaction = fm.beginTransaction();
 				commentListingFragment = commentListingController.get(false);
-				transaction.replace(R.id.main_left_frame, postListingFragment); // TODO fix this...
-				transaction.replace(R.id.main_right_frame, commentListingFragment);
+				transaction.replace(R.id.main_left_frame, postListingFragment); // TODO
+																				// fix
+																				// this...
+				transaction.replace(R.id.main_right_frame,
+						commentListingFragment);
 
 				mainMenuFragment = null;
 				isMenuShown = false;
@@ -375,23 +450,24 @@ public class MainActivity extends RefreshableActivity
 	}
 
 	public void onPostSelected(final RedditPreparedPost post) {
-		if(post.isSelf()) {
+		if (post.isSelf()) {
 			onPostCommentsSelected(post);
 		} else {
 			LinkHandler.onLinkClicked(this, post.url, false, post.src);
 		}
 	}
 
-	public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
+	public void onSharedPreferenceChanged(final SharedPreferences prefs,
+			final String key) {
 
-		if(PrefsUtility.isRestartRequired(this, key)) {
+		if (PrefsUtility.isRestartRequired(this, key)) {
 			requestRefresh(RefreshableFragment.RESTART, false);
 		}
 
-		if(PrefsUtility.isReLayoutRequired(this, key)) {
+		if (PrefsUtility.isReLayoutRequired(this, key)) {
 			requestRefresh(RefreshableFragment.MAIN_RELAYOUT, false);
 
-		} else if(PrefsUtility.isRefreshRequired(this, key)) {
+		} else if (PrefsUtility.isRefreshRequired(this, key)) {
 			requestRefresh(RefreshableFragment.ALL, false);
 		}
 	}
@@ -408,10 +484,13 @@ public class MainActivity extends RefreshableActivity
 		final boolean postsVisible = postListingFragment != null;
 		final boolean commentsVisible = commentListingFragment != null;
 
-		final boolean postsSortable = postListingController != null && postListingController.isSortable();
-		final boolean commentsSortable = commentListingController != null && commentListingController.isSortable();
+		final boolean postsSortable = postListingController != null
+				&& postListingController.isSortable();
+		final boolean commentsSortable = commentListingController != null
+				&& commentListingController.isSortable();
 
-		OptionsMenuUtility.prepare(this, menu, isMenuShown, postsVisible, commentsVisible, postsSortable, commentsSortable);
+		OptionsMenuUtility.prepare(this, menu, isMenuShown, postsVisible,
+				commentsVisible, postsSortable, commentsSortable);
 
 		getSupportActionBar().setHomeButtonEnabled(!isMenuShown);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(!isMenuShown);
@@ -425,7 +504,10 @@ public class MainActivity extends RefreshableActivity
 	}
 
 	public void onPastComments() {
-		final SessionListDialog sessionListDialog = SessionListDialog.newInstance(commentListingController.getUri(), commentListingController.getSession(), SessionChangeListener.SessionChangeType.COMMENTS);
+		final SessionListDialog sessionListDialog = SessionListDialog
+				.newInstance(commentListingController.getUri(),
+						commentListingController.getSession(),
+						SessionChangeListener.SessionChangeType.COMMENTS);
 		sessionListDialog.show(this);
 	}
 
@@ -440,13 +522,17 @@ public class MainActivity extends RefreshableActivity
 	}
 
 	public void onPastPosts() {
-		final SessionListDialog sessionListDialog = SessionListDialog.newInstance(postListingController.getUri(), postListingController.getSession(), SessionChangeListener.SessionChangeType.POSTS);
+		final SessionListDialog sessionListDialog = SessionListDialog
+				.newInstance(postListingController.getUri(),
+						postListingController.getSession(),
+						SessionChangeListener.SessionChangeType.POSTS);
 		sessionListDialog.show(this);
 	}
 
 	public void onSubmitPost() {
 		final Intent intent = new Intent(this, PostSubmitActivity.class);
-		intent.putExtra("subreddit", postListingController.getSubreddit().display_name);
+		intent.putExtra("subreddit",
+				postListingController.getSubreddit().display_name);
 		startActivity(intent);
 	}
 
@@ -458,40 +544,49 @@ public class MainActivity extends RefreshableActivity
 	public void onSearchPosts() {
 
 		final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-		final LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.dialog_editbox);
-		final EditText editText = (EditText)layout.findViewById(R.id.dialog_editbox_edittext);
+		final LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(
+				R.layout.dialog_editbox);
+		final EditText editText = (EditText) layout
+				.findViewById(R.id.dialog_editbox_edittext);
 
 		editText.requestFocus();
 
 		alertBuilder.setView(layout);
 		alertBuilder.setTitle(R.string.action_search);
 
-		alertBuilder.setPositiveButton(R.string.action_search, new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) {
+		alertBuilder.setPositiveButton(R.string.action_search,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
 
-				final String query = editText.getText().toString().toLowerCase().trim();
+						final String query = editText.getText().toString()
+								.toLowerCase().trim();
 
-				final RedditSubreddit sr = postListingController.getSubreddit();
-				final String restrict_sr = sr.isReal() ? "on" : "off";
+						final RedditSubreddit sr = postListingController
+								.getSubreddit();
+						final String restrict_sr = sr.isReal() ? "on" : "off";
 
-				final String url;
+						final String url;
 
-				if(sr.isReal()) {
-					url = sr.url + "/search.json?restrict_sr=on&q=" + query;
-				} else {
-					url = "/search.json?q=" + query;
-				}
+						if (sr.isReal()) {
+							url = sr.url + "/search.json?restrict_sr=on&q="
+									+ query;
+						} else {
+							url = "/search.json?q=" + query;
+						}
 
-				final Intent intent = new Intent(MainActivity.this, PostListingActivity.class);
-				intent.putExtra("subreddit", new RedditSubreddit(url, "\"" + query + "\" search results", false));
-				startActivity(intent);
-			}
-		});
+						final Intent intent = new Intent(MainActivity.this,
+								PostListingActivity.class);
+						intent.putExtra("subreddit", new RedditSubreddit(url,
+								"\"" + query + "\" search results", false));
+						startActivity(intent);
+					}
+				});
 
 		alertBuilder.setNegativeButton(R.string.dialog_cancel, null);
 
 		final AlertDialog alertDialog = alertBuilder.create();
-		alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+		alertDialog.getWindow().setSoftInputMode(
+				WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 		alertDialog.show();
 	}
 
@@ -501,49 +596,83 @@ public class MainActivity extends RefreshableActivity
 
 	@Override
 	public boolean onOptionsItemSelected(final MenuItem item) {
-		switch(item.getItemId()) {
-			case android.R.id.home:
-				onBackPressed();
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			onBackPressed();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
 	}
 
 	public void onSessionSelected(UUID session, SessionChangeType type) {
 
-		switch(type) {
-			case POSTS:
-				postListingController.setSession(session);
-				requestRefresh(RefreshableFragment.POSTS, false);
-				break;
-			case COMMENTS:
-				commentListingController.setSession(session);
-				requestRefresh(RefreshableFragment.COMMENTS, false);
-				break;
+		switch (type) {
+		case POSTS:
+			postListingController.setSession(session);
+			requestRefresh(RefreshableFragment.POSTS, false);
+			break;
+		case COMMENTS:
+			commentListingController.setSession(session);
+			requestRefresh(RefreshableFragment.COMMENTS, false);
+			break;
 		}
 	}
 
 	public void onSessionRefreshSelected(SessionChangeType type) {
-		switch(type) {
-			case POSTS:
-				onRefreshPosts();
-				break;
-			case COMMENTS:
-				onRefreshComments();
-				break;
+		switch (type) {
+		case POSTS:
+			onRefreshPosts();
+			break;
+		case COMMENTS:
+			onRefreshComments();
+			break;
 		}
 	}
 
-	public void onSessionChanged(UUID session, SessionChangeType type, long timestamp) {
+	public void onSessionChanged(UUID session, SessionChangeType type,
+			long timestamp) {
 
-		switch(type) {
-			case POSTS:
-				if(postListingController != null) postListingController.setSession(session);
-				break;
-			case COMMENTS:
-				if(commentListingController != null) commentListingController.setSession(session);
-				break;
+		switch (type) {
+		case POSTS:
+			if (postListingController != null)
+				postListingController.setSession(session);
+			break;
+		case COMMENTS:
+			if (commentListingController != null)
+				commentListingController.setSession(session);
+			break;
 		}
+	}
+
+	private void initADView() {
+
+		m_adView = new GuomobAdView(this, Globals.AD_KEY);
+		m_Relative = (RelativeLayout) findViewById(R.id.banner);
+		m_Relative.addView(m_adView);
+
+		m_adView.setOnBannerAdListener(new OnBannerAdListener() {
+
+			// 无网络连接
+			@Override
+			public void onNetWorkError() {
+				// TODO Auto-generated method stub
+				Log.e("GuomobLog", "onNetWorkError");
+			}
+
+			// 加载广告成功
+			@Override
+			public void onLoadAdOk() {
+				// TODO Auto-generated method stub
+				Log.e("GuomobLog", "onLoadAdOk");
+			}
+
+			// 加载广告失败 arg0：失败原因
+			@Override
+			public void onLoadAdError(String arg0) {
+				// TODO Auto-generated method stub
+				Log.e("GuomobLog", "onLoadAdError" + arg0);
+			}
+		});
 	}
 }

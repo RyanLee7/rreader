@@ -35,27 +35,32 @@ public class RedReader extends Application {
 	public void onCreate() {
 		super.onCreate();
 
-		final Thread.UncaughtExceptionHandler androidHandler = Thread.getDefaultUncaughtExceptionHandler();
+		final Thread.UncaughtExceptionHandler androidHandler = Thread
+				.getDefaultUncaughtExceptionHandler();
 
 		Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
 			public void uncaughtException(Thread thread, Throwable t) {
 
 				try {
+
 					t.printStackTrace();
 
 					File dir = Environment.getExternalStorageDirectory();
 
-					if(dir == null) {
+					if (dir == null) {
 						dir = Environment.getDataDirectory();
 					}
 
-					final FileOutputStream fos = new FileOutputStream(new File(dir, "redreader_crash_log_" + UUID.randomUUID().toString() + ".txt"));
+					final FileOutputStream fos = new FileOutputStream(new File(
+							dir, "redreader_crash_log_"
+									+ UUID.randomUUID().toString() + ".txt"));
 					final PrintWriter pw = new PrintWriter(fos);
 					t.printStackTrace(pw);
 					pw.flush();
 					pw.close();
 
-				} catch(Throwable t1) {}
+				} catch (Throwable t1) {
+				}
 
 				androidHandler.uncaughtException(thread, t);
 			}
@@ -69,12 +74,16 @@ public class RedReader extends Application {
 			@Override
 			public void run() {
 
-				android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+				android.os.Process
+						.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
 
 				cm.pruneCache(); // Hope for the best :)
 
-				final RedditChangeDataManager cdm = RedditChangeDataManager.getInstance(RedReader.this);
-				cdm.prune(PrefsUtility.pref_cache_maxage(RedReader.this, PreferenceManager.getDefaultSharedPreferences(RedReader.this)));
+				final RedditChangeDataManager cdm = RedditChangeDataManager
+						.getInstance(RedReader.this);
+				cdm.prune(PrefsUtility.pref_cache_maxage(RedReader.this,
+						PreferenceManager
+								.getDefaultSharedPreferences(RedReader.this)));
 
 			}
 		}.start();

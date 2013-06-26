@@ -13,7 +13,7 @@
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with RedReader.  If not, see <http://www.gnu.org/licenses/>.
+  ~ along with RedReader.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 
@@ -586,7 +586,7 @@
     <string name="pref_appearance_theme_key">pref_appearance_theme</string>
     <string name="pref_appearance_theme_title">主题</string>
     <string name="pref_appearance_solidblack_key">pref_appearance_solidblack</string>
-    <string name="pref_appearance_solidblack_title">夜间模式使用黑色字体</string>
+    <string name="pref_appearance_solidblack_title">夜间模式使用黑色</string>
     <string name="pref_appearance_fontscale_posts_key">pref_appearance_fontscale_posts</string>
     <string name="pref_appearance_fontscale_posts_title">帖子字号</string>
     <string name="pref_appearance_fontscale_comments_key">pref_appearance_fontscale_comments</string>
@@ -689,17 +689,17 @@
     <string name="accounts_delete_sure">确定注销此账号？</string>
     <!-- Post Sorts -->
 
-    <string name="sort_posts_hot">热门的</string>
-    <string name="sort_posts_new">最新的</string>
-    <string name="sort_posts_rising">上升的</string>
-    <string name="sort_posts_controversial">有争论的</string>
-    <string name="sort_posts_top">顶部</string>
-    <string name="sort_posts_top_hour">顶部：一小时内</string>
-    <string name="sort_posts_top_today">顶部：一天内</string>
-    <string name="sort_posts_top_week">顶部：一周内</string>
-    <string name="sort_posts_top_month">顶部：一个月内</string>
-    <string name="sort_posts_top_year">顶部：一年内</string>
-    <string name="sort_posts_top_all">顶部：所有时间</string>
+    <string name="sort_posts_hot">热门的帖子</string>
+    <string name="sort_posts_new">最新的帖子</string>
+    <string name="sort_posts_rising">上升的帖子</string>
+    <string name="sort_posts_controversial">有争论的帖子</string>
+    <string name="sort_posts_top">置顶的帖子</string>
+    <string name="sort_posts_top_hour">置顶：一小时内</string>
+    <string name="sort_posts_top_today">置顶：一天内</string>
+    <string name="sort_posts_top_week">置顶：一周内</string>
+    <string name="sort_posts_top_month">置顶：一个月内</string>
+    <string name="sort_posts_top_year">置顶：一年内</string>
+    <string name="sort_posts_top_all">置顶：所有时间</string>
     <!-- Comment Sorts -->
 
     <string name="sort_comments_best">最好的</string>
@@ -707,7 +707,7 @@
     <string name="sort_comments_new">最新的</string>
     <string name="sort_comments_old">旧的</string>
     <string name="sort_comments_controversial">有争论的</string>
-    <string name="sort_comments_top">顶部</string>
+    <string name="sort_comments_top">置顶</string>
     <!-- Dialog Buttons -->
 
     <string name="dialog_close">关闭</string>
