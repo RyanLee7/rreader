@@ -13,7 +13,7 @@
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with RedReader.  If not, see <http://www.gnu.org/licenses/>.
+  ~ along with RedReader.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 
@@ -557,7 +557,7 @@
     <string name="back_button_label">Back</string>
     <string name="next_button_label">Next</string>
     <string name="skip_button_label">Skip</string>
-    <string name="app_name">RedReader Beta</string>
+    <string name="app_name">红阅阅读</string>
 
     <!-- First Run Dialog -->
 
@@ -570,7 +570,7 @@
 
     <string name="prefs_category_appearance">外观</string>
     <string name="prefs_category_behaviour">行为</string>
-    <string name="prefs_category_cache">缓冲</string>
+    <string name="prefs_category_cache">缓存管理</string>
     <string name="prefs_category_menus">主页面菜单</string>
 
     <!-- Appearance Prefs -->
@@ -586,7 +586,7 @@
     <string name="pref_appearance_theme_key">pref_appearance_theme</string>
     <string name="pref_appearance_theme_title">主题</string>
     <string name="pref_appearance_solidblack_key">pref_appearance_solidblack</string>
-    <string name="pref_appearance_solidblack_title">夜间模式黑色字体</string>
+    <string name="pref_appearance_solidblack_title">夜间模式使用黑色字体</string>
     <string name="pref_appearance_fontscale_posts_key">pref_appearance_fontscale_posts</string>
     <string name="pref_appearance_fontscale_posts_title">帖子字号</string>
     <string name="pref_appearance_fontscale_comments_key">pref_appearance_fontscale_comments</string>
@@ -600,7 +600,7 @@
     <string name="pref_appearance_loading_detail_key">pref_appearance_loading_detail</string>
     <string name="pref_appearance_loading_detail_title">显示详细的加载信息</string>
     <string name="pref_appearance_comment_header_items_key">pref_appearance_comment_header_items</string>
-    <string name="pref_appearance_comment_header_items_title">设置评论表单上方显示的信息</string>
+    <string name="pref_appearance_comment_header_items_title">评论表单显示</string>
 
     <!-- Behaviour Prefs -->
 
@@ -618,7 +618,7 @@
 
     <!-- Cache Prefs -->
 
-    <string name="pref_cache_pruning">缓存管理</string>
+    <string name="pref_cache_pruning">缓存清理</string>
     <string name="pref_cache_maxage_listing_key">pref_cache_maxage_listing</string>
     <string name="pref_cache_maxage_listing_title">删除缓存列表</string>
     <string name="pref_cache_maxage_thumb_key">pref_cache_maxage_thumb</string>
@@ -664,9 +664,9 @@
     <string name="mainmenu_all">所有子目录</string>
     <string name="mainmenu_custom">定制子目录</string>
     <string name="mainmenu_custom_invalid_name">无效子目录名.</string>
-    <string name="mainmenu_saved">保存帖子</string>
-    <string name="mainmenu_hidden">隐藏帖子</string>
-    <string name="mainmenu_upvoted">顶帖子</string>
+    <string name="mainmenu_saved">保存的帖子</string>
+    <string name="mainmenu_hidden">隐藏的帖子</string>
+    <string name="mainmenu_upvoted">投正票的帖子</string>
     <string name="mainmenu_inbox">收件箱</string>
     <string name="mainmenu_profile">个人资料</string>
     <string name="mainmenu_header_subreddits">子目录</string>
@@ -675,9 +675,9 @@
     <string name="listing_cached">从缓存查看</string>
     <!-- Accounts Dialog -->
 
-    <string name="accounts_anon"> 匿名的</string>
-    <string name="accounts_active">有效的</string>
-    <string name="accounts_add">增加Reddit.com 账号</string>
+    <string name="accounts_anon"> 匿名浏览</string>
+    <string name="accounts_active">已激活</string>
+    <string name="accounts_add">登陆Reddit.com 账号</string>
     <string name="accounts_setactive">激活账号</string>
     <string name="accounts_reauth">重新认证</string>
     <string name="accounts_delete">删除</string>
@@ -718,19 +718,19 @@
     <!-- Thing Actions -->
 
     <string name="action_menu_post_title">帖子操作</string>
-    <string name="action_upvote">正票</string>
-    <string name="action_downvote">反票</string>
+    <string name="action_upvote">投正票</string>
+    <string name="action_downvote">投反票</string>
     <string name="action_vote_remove">删除投票</string>
     <string name="action_upvote_remove">删除正票</string>
     <string name="action_downvote_remove">删除反票</string>
     <string name="action_save">保存</string>
-    <string name="action_hide">H隐藏</string>
+    <string name="action_hide">隐藏</string>
     <string name="action_unsave">不保存</string>
     <string name="action_unhide">不隐藏</string>
     <string name="action_external">使用外部浏览器浏览</string>
     <string name="action_external_short">使用浏览器</string>
     <string name="action_actionmenu_short">操作</string>
-    <string name="action_actionmenu">帖子期间</string>
+    <string name="action_actionmenu">帖子操作</string>
     <string name="action_comment_links">评论中的链接</string>
     <string name="action_selftext_links">帖子中的链接</string>
     <string name="action_share">分享</string>
@@ -739,7 +739,7 @@
     <string name="action_gotosubreddit">前往子目录</string>
     <string name="action_reply">回复</string>
     <string name="action_edit">编辑</string>
-    <string name="action_user_profile">个人资料</string>
+    <string name="action_user_profile">用户信息</string>
     <string name="action_user_profile_short">用户</string>
     <string name="action_properties">属性</string>
     <string name="action_comments">浏览评论</string>
@@ -748,7 +748,7 @@
     <string name="action_link">打开链接</string>
     <string name="action_link_switch">切换到链接</string>
     <string name="action_link_short">链接</string>
-    <string name="action_collapse">Toggle Collapse</string>
+    <string name="action_collapse">显示全部/摘要</string>
     <string name="action_nothing">无</string>
     <string name="action_report">报告</string>
     <string name="action_report_sure">确定要报告这个？</string>
@@ -798,7 +798,7 @@
     <string name="error_bad_captcha_message">验证码不正确，请重新输入</string>
     <string name="error_404_title">找不到页面</string>
     <string name="error_404_message">找不到请求的数据</string>
-    <string name="error_unknown_api_title">错误</string>
+    <string name="error_unknown_api_title">未知</string>
     <string name="error_unknown_api_message">服务器未知错误，请重新连接</string>
     <string name="error_redditdown_title">Reddit.com已关闭</string>
     <string name="error_redditdown_message">Reddit.com超过负载，请重新连接</string>
@@ -827,7 +827,7 @@
     <string name="session_active">激活</string>
     <!-- Time -->
 
-    <string name="time_ago">%秒前</string>
+    <string name="time_ago">%s 前</string>
     <!-- User Profile -->
 
     <string name="userprofile_created">创建</string>
@@ -859,8 +859,8 @@
     <string name="props_down">下降</string>
     <!-- General -->
 
-    <string name="general_true">正确</string>
-    <string name="general_false">错误</string>
+    <string name="general_true">是</string>
+    <string name="general_false">不是</string>
     <!-- 2013-05-17 Arrays -->
 
     <string name="pref_appearance_twopane_never">从不</string>
@@ -890,7 +890,7 @@
 
     <string name="error_toast_notloggedin">进行此操作前必须登陆</string>
     <string name="button_moredetail">更多细节</string>
-    <string name="pref_appearance_scale_normal">正常</string>
+    <string name="pref_appearance_scale_normal">默认</string>
     <string name="error_invalid_password_title">密码错误</string>
     <string name="error_invalid_password_message">用户名或密码错误</string>
     <string name="error_ratelimit_title">尝试次数过多</string>
@@ -922,13 +922,13 @@
     <string name="prefs_category_about">关于</string>
     <!-- 2013-06-07 -->
 
-    <string name="pref_behaviour_sort_header">Sorting</string>
+    <string name="pref_behaviour_sort_header">排序</string>
     <!-- 2013-06-09 -->
 
-    <string name="pref_appearance_locale_header">Locale</string>
+    <string name="pref_appearance_locale_header">区域设置</string>
     <string name="pref_appearance_langforce_key">pref_appearance_langforce_key</string>
-    <string name="pref_appearance_langforce_title">Language</string>
-    <string name="lang_auto">Automatic</string>
+    <string name="pref_appearance_langforce_title">语言</string>
+    <string name="lang_auto">自动</string>
     <string name="lang_en">English</string>
     <string name="lang_da">Danish</string>
     <string name="lang_de">German</string>
