@@ -24,7 +24,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.BuildConfig;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.app.ActionBarImpl;
 import com.actionbarsherlock.internal.view.StandaloneActionMode;

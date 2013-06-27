@@ -20,7 +20,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 public abstract class DialogPreference extends Preference implements
         DialogInterface.OnClickListener, DialogInterface.OnDismissListener,

@@ -27,7 +27,7 @@ import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;
 import com.actionbarsherlock.internal.widget.ActionBarView;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window.Callback;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 public final class PreferenceScreen extends PreferenceGroup implements
         AdapterView.OnItemClickListener, DialogInterface.OnDismissListener {

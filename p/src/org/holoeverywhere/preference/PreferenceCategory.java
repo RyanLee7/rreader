@@ -3,7 +3,7 @@ package org.holoeverywhere.preference;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 public class PreferenceCategory extends PreferenceGroup {
     private static final String TAG = "PreferenceCategory";

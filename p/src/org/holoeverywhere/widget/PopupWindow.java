@@ -3,7 +3,7 @@ package org.holoeverywhere.widget;
 
 import java.lang.ref.WeakReference;
 
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import org.holoeverywhere.drawable.DrawableCompat;
 import org.holoeverywhere.drawable.StateListDrawable;
 

@@ -2,7 +2,7 @@
 package org.holoeverywhere.widget;
 
 import org.holoeverywhere.LayoutInflater;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

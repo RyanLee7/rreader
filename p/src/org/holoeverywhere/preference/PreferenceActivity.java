@@ -4,7 +4,7 @@ package org.holoeverywhere.preference;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 import org.holoeverywhere.LayoutInflater;
 import org.holoeverywhere.app.Fragment;

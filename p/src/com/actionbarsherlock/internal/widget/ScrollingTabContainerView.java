@@ -33,7 +33,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import org.quantumbadger.redreader.R;import com.actionbarsherlock.app.ActionBar;
+import com.ryan.redreader.R;import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.nineoldandroids.animation.Animator;
 import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
 import com.actionbarsherlock.internal.nineoldandroids.widget.NineHorizontalScrollView;

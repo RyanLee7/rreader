@@ -1,7 +1,7 @@
 
 package org.holoeverywhere.widget;
 
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import org.holoeverywhere.internal._View;
 
 import android.annotation.SuppressLint;

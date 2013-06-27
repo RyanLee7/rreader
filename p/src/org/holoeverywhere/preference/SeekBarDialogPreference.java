@@ -12,7 +12,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 public class SeekBarDialogPreference extends DialogPreference {
     private static class SavedState extends BaseSavedState {

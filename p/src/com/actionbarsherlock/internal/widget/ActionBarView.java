@@ -44,7 +44,7 @@ import android.widget.LinearLayout;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.internal.view.menu.ActionMenuItem;

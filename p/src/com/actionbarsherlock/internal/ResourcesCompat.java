@@ -8,7 +8,7 @@ import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import com.actionbarsherlock.BuildConfig;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import org.xmlpull.v1.XmlPullParser;
 
 public final class ResourcesCompat {

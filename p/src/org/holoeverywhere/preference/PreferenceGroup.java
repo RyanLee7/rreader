@@ -4,7 +4,7 @@ package org.holoeverywhere.preference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 import org.holoeverywhere.internal.GenericInflater;
 

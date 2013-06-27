@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 import android.content.Context;
 import android.graphics.Typeface;

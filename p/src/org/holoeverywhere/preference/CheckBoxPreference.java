@@ -5,7 +5,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Checkable;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 public class CheckBoxPreference extends TwoStatePreference {
     public CheckBoxPreference(Context context) {

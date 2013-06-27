@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.holoeverywhere.HoloEverywhere;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import org.holoeverywhere.app.Activity;
 import org.holoeverywhere.drawable.DrawableCompat;
 import org.holoeverywhere.widget.FastScroller.FastScrollerCallback;

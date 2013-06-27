@@ -7,7 +7,7 @@ import org.holoeverywhere.app.AlertDialog.Builder;
 import org.holoeverywhere.app.Dialog;
 import org.holoeverywhere.internal.AlertController.AlertParams.OnPrepareListViewListener;
 import org.holoeverywhere.widget.ListView;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 import android.app.Activity;
 import android.content.Context;

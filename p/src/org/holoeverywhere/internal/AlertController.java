@@ -4,7 +4,7 @@ package org.holoeverywhere.internal;
 import java.lang.ref.WeakReference;
 
 import org.holoeverywhere.LayoutInflater;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import org.holoeverywhere.app.AlertDialog;
 import org.holoeverywhere.widget.ArrayAdapter;
 import org.holoeverywhere.widget.Button;

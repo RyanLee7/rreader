@@ -1,7 +1,7 @@
 
 package org.holoeverywhere.widget;
 
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import org.holoeverywhere.text.AllCapsTransformationMethod;
 import org.holoeverywhere.text.TransformationMethod;
 

@@ -21,7 +21,7 @@ import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 public class VolumePreference extends SeekBarDialogPreference implements
         PreferenceManager.OnActivityStopListener, View.OnKeyListener {

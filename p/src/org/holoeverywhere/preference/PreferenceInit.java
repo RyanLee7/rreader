@@ -11,7 +11,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 public class PreferenceInit {
     public static final String PACKAGE;

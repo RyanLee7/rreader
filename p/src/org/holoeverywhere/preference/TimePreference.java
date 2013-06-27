@@ -11,7 +11,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 public class TimePreference extends DialogPreference {
     public static interface OnTimeSetListener {

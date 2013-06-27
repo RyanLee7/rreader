@@ -1,7 +1,7 @@
 
 package org.holoeverywhere.content;
 
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import org.holoeverywhere.app.ResolverActivity;
 
 import android.content.Intent;

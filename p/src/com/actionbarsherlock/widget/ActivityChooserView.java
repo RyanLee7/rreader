@@ -17,7 +17,7 @@
 package com.actionbarsherlock.widget;
 
 import android.os.Build;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import com.actionbarsherlock.internal.widget.IcsLinearLayout;
 import com.actionbarsherlock.internal.widget.IcsListPopupWindow;
 import com.actionbarsherlock.view.ActionProvider;

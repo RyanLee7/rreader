@@ -66,7 +66,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import com.actionbarsherlock.view.CollapsibleActionView;
 
 import java.lang.reflect.Method;

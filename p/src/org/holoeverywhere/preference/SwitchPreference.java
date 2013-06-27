@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Checkable;
 import android.widget.CompoundButton;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 public class SwitchPreference extends TwoStatePreference {
     private class Listener implements CompoundButton.OnCheckedChangeListener {

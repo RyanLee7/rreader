@@ -4,7 +4,7 @@ package org.holoeverywhere.internal;
 import static android.view.View.MeasureSpec.AT_MOST;
 import static android.view.View.MeasureSpec.EXACTLY;
 
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 import android.content.Context;
 import android.content.res.TypedArray;

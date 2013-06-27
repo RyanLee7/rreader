@@ -4,7 +4,7 @@ package org.holoeverywhere.preference;
 import org.holoeverywhere.LayoutInflater;
 import org.holoeverywhere.app.Fragment;
 import org.holoeverywhere.widget.ListView;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 import android.content.Intent;
 import android.os.Bundle;

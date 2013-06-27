@@ -2,7 +2,7 @@
 package org.holoeverywhere.app;
 
 import org.holoeverywhere.LayoutInflater;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import org.holoeverywhere.widget.ListView;
 
 import android.os.Bundle;

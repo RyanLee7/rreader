@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import org.holoeverywhere.LayoutInflater;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import org.holoeverywhere.internal.NumberPickerEditText;
 import org.holoeverywhere.util.Arrays;
 

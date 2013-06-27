@@ -3,7 +3,7 @@ package org.holoeverywhere.app;
 
 import java.text.NumberFormat;
 
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import org.holoeverywhere.widget.ProgressBar;
 
 import android.content.Context;

@@ -10,7 +10,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 public class DatePreference extends DialogPreference {
     public static interface OnDateSetListener {

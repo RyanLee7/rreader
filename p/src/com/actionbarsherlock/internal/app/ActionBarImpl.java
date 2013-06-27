@@ -35,7 +35,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.SpinnerAdapter;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.nineoldandroids.animation.Animator;
 import com.actionbarsherlock.internal.nineoldandroids.animation.AnimatorListenerAdapter;

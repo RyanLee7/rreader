@@ -10,7 +10,7 @@ import java.util.Map;
 import org.holoeverywhere.HoloEverywhere;
 import org.holoeverywhere.HoloEverywhere.PreferenceImpl;
 import org.holoeverywhere.LayoutInflater;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import org.holoeverywhere.SystemServiceManager;
 import org.holoeverywhere.SystemServiceManager.SuperSystemService;
 import org.holoeverywhere.ThemeManager;

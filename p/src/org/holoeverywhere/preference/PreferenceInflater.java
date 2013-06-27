@@ -17,7 +17,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 public class PreferenceInflater extends GenericInflater<Preference, PreferenceGroup> {
     private static final String EXTRA_TAG_NAME = "extra";

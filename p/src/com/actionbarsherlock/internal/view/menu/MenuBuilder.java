@@ -40,7 +40,7 @@ import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.View;
 
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import com.actionbarsherlock.view.ActionProvider;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;

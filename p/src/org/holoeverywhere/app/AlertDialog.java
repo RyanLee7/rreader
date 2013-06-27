@@ -1,7 +1,7 @@
 
 package org.holoeverywhere.app;
 
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import org.holoeverywhere.internal.AlertController;
 import org.holoeverywhere.internal.AlertController.AlertDecorViewInstaller;
 import org.holoeverywhere.internal.AlertController.AlertParams;

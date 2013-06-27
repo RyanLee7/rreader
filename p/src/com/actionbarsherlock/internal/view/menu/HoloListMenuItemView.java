@@ -2,7 +2,7 @@
 package com.actionbarsherlock.internal.view.menu;
 
 import org.holoeverywhere.LayoutInflater;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import org.holoeverywhere.widget.LinearLayout;
 import org.holoeverywhere.widget.TextView;
 

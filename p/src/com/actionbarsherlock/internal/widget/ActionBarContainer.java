@@ -26,7 +26,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.nineoldandroids.widget.NineFrameLayout;
 

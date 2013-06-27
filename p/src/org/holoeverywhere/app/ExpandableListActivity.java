@@ -1,7 +1,7 @@
 
 package org.holoeverywhere.app;
 
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import org.holoeverywhere.widget.ExpandableListView;
 
 import android.os.Bundle;

@@ -11,7 +11,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 public class RingtonePreference extends DialogPreference implements
         RingtonePickerListener {

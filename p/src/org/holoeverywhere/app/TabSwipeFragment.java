@@ -2,7 +2,7 @@
 package org.holoeverywhere.app;
 
 import org.holoeverywhere.LayoutInflater;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import org.holoeverywhere.addon.AddonTabber;
 import org.holoeverywhere.addon.AddonTabber.AddonTabberCallback;
 import org.holoeverywhere.addon.AddonTabber.AddonTabberF;

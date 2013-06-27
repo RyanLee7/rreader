@@ -42,7 +42,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

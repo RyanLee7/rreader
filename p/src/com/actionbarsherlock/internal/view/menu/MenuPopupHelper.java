@@ -32,7 +32,7 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.PopupWindow;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import com.actionbarsherlock.internal.view.View_HasStateListenerSupport;
 import com.actionbarsherlock.internal.view.View_OnAttachStateChangeListener;
 import com.actionbarsherlock.internal.widget.IcsListPopupWindow;

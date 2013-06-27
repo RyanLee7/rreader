@@ -3,7 +3,7 @@ package org.holoeverywhere.widget;
 
 import org.holoeverywhere.FontLoader;
 import org.holoeverywhere.FontLoader.FontStyleProvider;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import org.holoeverywhere.text.AllCapsTransformationMethod;
 
 import android.annotation.SuppressLint;

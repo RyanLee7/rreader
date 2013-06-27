@@ -16,7 +16,7 @@
 
 package com.actionbarsherlock.internal.view.menu;
 
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 import android.content.Context;
 import android.content.res.TypedArray;

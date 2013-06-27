@@ -11,7 +11,7 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 public class SeekBarPreference extends Preference implements
         OnSeekBarChangeListener {

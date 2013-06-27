@@ -1,7 +1,7 @@
 
 package com.actionbarsherlock.internal.view.menu;
 
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import org.holoeverywhere.app.AlertDialog;
 
 import android.content.DialogInterface;

@@ -9,7 +9,7 @@ import android.os.Build.VERSION_CODES;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 public class IcsToast extends Toast {
     public static final int LENGTH_LONG = Toast.LENGTH_LONG;
     public static final int LENGTH_SHORT = Toast.LENGTH_SHORT;

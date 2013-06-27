@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.holoeverywhere.LayoutInflater;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import org.holoeverywhere.internal.AlertController;
 import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.GridView;

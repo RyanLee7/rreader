@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.TextView;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 public abstract class TwoStatePreference extends Preference {
 

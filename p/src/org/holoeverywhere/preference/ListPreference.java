@@ -9,7 +9,7 @@ import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 public class ListPreference extends DialogPreference {
     private static class SavedState extends BaseSavedState {

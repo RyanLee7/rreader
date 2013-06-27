@@ -15,7 +15,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 
 public class FragmentBreadCrumbs extends ViewGroup implements
         FragmentManager.OnBackStackChangedListener {

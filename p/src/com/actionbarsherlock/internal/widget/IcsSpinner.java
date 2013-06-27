@@ -18,7 +18,7 @@ package com.actionbarsherlock.internal.widget;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
-import org.quantumbadger.redreader.R;import android.content.Context;
+import com.ryan.redreader.R;import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.res.TypedArray;

@@ -3,7 +3,7 @@ package org.holoeverywhere.drawable;
 
 import java.io.IOException;
 
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 

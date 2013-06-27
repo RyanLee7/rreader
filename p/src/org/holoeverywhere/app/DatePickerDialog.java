@@ -4,7 +4,7 @@ package org.holoeverywhere.app;
 import java.util.Calendar;
 
 import org.holoeverywhere.LayoutInflater;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import org.holoeverywhere.widget.DatePicker;
 import org.holoeverywhere.widget.DatePicker.OnDateChangedListener;
 

@@ -32,7 +32,7 @@ import android.util.Xml;
 import android.view.InflateException;
 import android.view.View;
 
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 
 /**

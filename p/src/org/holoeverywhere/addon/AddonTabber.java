@@ -1,7 +1,7 @@
 
 package org.holoeverywhere.addon;
 
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 import org.holoeverywhere.app.Activity;
 import org.holoeverywhere.app.Fragment;
 import org.holoeverywhere.app.TabSwipeController;

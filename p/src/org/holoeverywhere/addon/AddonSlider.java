@@ -2,7 +2,7 @@
 package org.holoeverywhere.addon;
 
 import org.holoeverywhere.addon.IAddon.Addon;
-import org.quantumbadger.redreader.R;
+import com.ryan.redreader.R;
 //import org.holoeverywhere.slider.R;
 import org.holoeverywhere.slider.SliderMenu;
 import org.holoeverywhere.widget.DrawerLayout;
