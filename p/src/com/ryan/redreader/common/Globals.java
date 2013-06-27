@@ -9,7 +9,7 @@ public class Globals {
 	public static final boolean AD_MODE = true;// �Ƿ������
 	public static boolean NETWORK_ENABLE = false;// ����״̬
 
-	public static final String AD_KEY = "sad";// ���˹��KEY
+	public static final String AD_KEY = "0npyuclq78s818";// ���˹��KEY
 
 	public static boolean isConnect(Context context) {
 		// ��ȡ�ֻ��������ӹ�����󣨰�����wi-fi,net�����ӵĹ��?

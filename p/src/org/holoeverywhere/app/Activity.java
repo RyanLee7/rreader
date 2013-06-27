@@ -341,7 +341,7 @@ public abstract class Activity extends _HoloActivity {
 				addon.onPause();
 			}
 		});
-		// ryan add.ÓÑÃËÍ³¼Æ
+		// ryan add.å‹ç›Ÿç»Ÿè®¡
 		MobclickAgent.onPause(this);
 		super.onPause();
 	}

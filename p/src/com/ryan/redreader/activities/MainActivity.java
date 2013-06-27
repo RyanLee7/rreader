@@ -83,7 +83,7 @@ public class MainActivity extends RefreshableActivity implements
 
 	private SharedPreferences sharedPreferences;
 
-	/* ʹ�ù�� */
+	/* 广告 */
 
 	GuomobAdView m_adView;
 	RelativeLayout m_Relative;
@@ -91,16 +91,16 @@ public class MainActivity extends RefreshableActivity implements
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 
-		// Ӧ������
+		// 应用主题
 		PrefsUtility.applyTheme(this);
 
 		OptionsMenuUtility.fixActionBar(this, getString(R.string.app_name));
 
 		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		// ע�����
+		//
 		sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
-		// ��ȡ�����й��ں�ɫ�����ѡ�ͬʱ�жϵ�ǰӦ�õ������ǲ���ҹ������
+		//
 		final boolean solidblack = PrefsUtility.appearance_solidblack(this,
 				sharedPreferences)
 				&& PrefsUtility.appearance_theme(this, sharedPreferences) == PrefsUtility.AppearanceTheme.NIGHT;
@@ -111,7 +111,7 @@ public class MainActivity extends RefreshableActivity implements
 
 		final View layout;
 
-		// �жϲ���
+		//
 		if (twoPane)
 			layout = getLayoutInflater().inflate(R.layout.main_double);
 		else
@@ -174,7 +174,7 @@ public class MainActivity extends RefreshableActivity implements
 		}
 		Globals.NETWORK_ENABLE = Globals.isConnect(this);// �ж�����
 		if (Globals.AD_MODE && Globals.NETWORK_ENABLE) {
-			// �����������²ż��ع��
+			// 有网络使用广告
 			initADView();
 		}
 	}
