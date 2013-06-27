@@ -675,7 +675,7 @@
     <string name="sort_posts_hot">热门的帖子</string>
     <string name="sort_posts_new">最新的帖子</string>
     <string name="sort_posts_rising">上升的帖子</string>
-    <string name="sort_posts_controversial">有争论的帖子</string>
+    <string name="sort_posts_controversial">热议的帖子</string>
     <string name="sort_posts_top">置顶的帖子</string>
     <string name="sort_posts_top_hour">置顶：一小时内</string>
     <string name="sort_posts_top_today">置顶：一天内</string>
@@ -689,7 +689,7 @@
     <string name="sort_comments_hot">热门的</string>
     <string name="sort_comments_new">最新的</string>
     <string name="sort_comments_old">旧的</string>
-    <string name="sort_comments_controversial">有争论的</string>
+    <string name="sort_comments_controversial">热议的的</string>
     <string name="sort_comments_top">置顶</string>
     <!-- Dialog Buttons -->
 
