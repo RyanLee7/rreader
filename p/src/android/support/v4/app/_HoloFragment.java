@@ -1,4 +1,3 @@
-
 package android.support.v4.app;
 
 import org.holoeverywhere.HoloEverywhere;
@@ -34,264 +33,268 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-public abstract class _HoloFragment extends android.support.v4.app.Fragment implements
-        OnPrepareOptionsMenuListener,
-        OnCreateOptionsMenuListener, OnOptionsItemSelectedListener, ContextMenuListener,
-        ContextMenuListenersProvider, IAddonAttacher<IAddonFragment> {
-    private Activity mActivity;
-    boolean mDetachChildFragments = true;
+public abstract class _HoloFragment extends android.support.v4.app.Fragment
+		implements OnPrepareOptionsMenuListener, OnCreateOptionsMenuListener,
+		OnOptionsItemSelectedListener, ContextMenuListener,
+		ContextMenuListenersProvider, IAddonAttacher<IAddonFragment> {
 
-    private void fixClassloader(Bundle savedInstanceState) {
-        if (savedInstanceState == null) {
-            return;
-        }
-        savedInstanceState.setClassLoader(HoloEverywhere.class.getClassLoader());
-    }
+	private Activity mActivity;
+	boolean mDetachChildFragments = true;
 
-    public final int getContainerId() {
-        return mContainerId;
-    }
+	private void fixClassloader(Bundle savedInstanceState) {
+		if (savedInstanceState == null) {
+			return;
+		}
+		savedInstanceState
+				.setClassLoader(HoloEverywhere.class.getClassLoader());
+	}
 
-    @Override
-    public ContextMenuListener getContextMenuListener(View view) {
-        return mActivity.getContextMenuListener(view);
-    }
+	public final int getContainerId() {
+		return mContainerId;
+	}
 
-    public SharedPreferences getDefaultSharedPreferences() {
-        return mActivity.getDefaultSharedPreferences();
-    }
+	@Override
+	public ContextMenuListener getContextMenuListener(View view) {
+		return mActivity.getContextMenuListener(view);
+	}
 
-    public SharedPreferences getDefaultSharedPreferences(PreferenceImpl impl) {
-        return mActivity.getDefaultSharedPreferences(impl);
-    }
+	public SharedPreferences getDefaultSharedPreferences() {
+		return mActivity.getDefaultSharedPreferences();
+	}
 
-    public abstract LayoutInflater getLayoutInflater();
+	public SharedPreferences getDefaultSharedPreferences(PreferenceImpl impl) {
+		return mActivity.getDefaultSharedPreferences(impl);
+	}
 
-    @Override
-    @Deprecated
-    /**
-     * It's method internal. Don't use or override it
-     */
-    public LayoutInflater getLayoutInflater(Bundle savedInstanceState) {
-        return getLayoutInflater();
-    }
+	public abstract LayoutInflater getLayoutInflater();
 
-    public MenuInflater getMenuInflater() {
-        return mActivity.getSupportMenuInflater();
-    }
+	@Override
+	@Deprecated
+	/**
+	 * It's method internal. Don't use or override it
+	 */
+	public LayoutInflater getLayoutInflater(Bundle savedInstanceState) {
+		return getLayoutInflater();
+	}
 
-    public SharedPreferences getSharedPreferences(PreferenceImpl impl,
-            String name, int mode) {
-        return mActivity.getSharedPreferences(impl, name, mode);
-    }
+	public MenuInflater getMenuInflater() {
+		return mActivity.getSupportMenuInflater();
+	}
 
-    public SharedPreferences getSharedPreferences(String name, int mode) {
-        return mActivity.getSharedPreferences(name, mode);
-    }
+	public SharedPreferences getSharedPreferences(PreferenceImpl impl,
+			String name, int mode) {
+		return mActivity.getSharedPreferences(impl, name, mode);
+	}
 
-    public ActionBar getSupportActionBar() {
-        return mActivity.getSupportActionBar();
-    }
+	public SharedPreferences getSharedPreferences(String name, int mode) {
+		return mActivity.getSharedPreferences(name, mode);
+	}
 
-    public Context getSupportActionBarContext() {
-        return mActivity.getSupportActionBarContext();
-    }
+	public ActionBar getSupportActionBar() {
+		return mActivity.getSupportActionBar();
+	}
 
-    public Activity getSupportActivity() {
-        return mActivity;
-    }
+	public Context getSupportActionBarContext() {
+		return mActivity.getSupportActionBarContext();
+	}
 
-    public Application getSupportApplication() {
-        return mActivity.getSupportApplication();
-    }
+	public Activity getSupportActivity() {
+		return mActivity;
+	}
 
-    public Object getSystemService(String name) {
-        return mActivity.getSystemService(name);
-    }
+	public Application getSupportApplication() {
+		return mActivity.getSupportApplication();
+	}
 
-    public boolean isDetachChildFragments() {
-        return mDetachChildFragments;
-    }
+	public Object getSystemService(String name) {
+		return mActivity.getSystemService(name);
+	}
 
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
+	public boolean isDetachChildFragments() {
+		return mDetachChildFragments;
+	}
 
-    @Override
-    public final void onAttach(android.app.Activity activity) {
-        if (!(activity instanceof Activity)) {
-            throw new RuntimeException(
-                    "HoloEverywhere.Fragment must be attached to HoloEverywhere.Activity");
-        }
-        mActivity = (Activity) activity;
-        onAttach((Activity) activity);
-    }
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+	}
 
-    @Override
-    public final boolean onContextItemSelected(android.view.MenuItem item) {
-        return onContextItemSelected(new ContextMenuItemWrapper(item));
-    }
+	@Override
+	public final void onAttach(android.app.Activity activity) {
+		if (!(activity instanceof Activity)) {
+			throw new RuntimeException(
+					"HoloEverywhere.Fragment must be attached to HoloEverywhere.Activity");
+		}
+		mActivity = (Activity) activity;
+		onAttach((Activity) activity);
+	}
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        return mActivity.onContextItemSelected(item);
-    }
+	@Override
+	public final boolean onContextItemSelected(android.view.MenuItem item) {
+		return onContextItemSelected(new ContextMenuItemWrapper(item));
+	}
 
-    @Override
-    public void onContextMenuClosed(ContextMenu menu) {
-        mActivity.onContextMenuClosed(menu);
-    }
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		return mActivity.onContextItemSelected(item);
+	}
 
-    @Override
-    public final void onCreateContextMenu(android.view.ContextMenu menu,
-            View v, ContextMenuInfo menuInfo) {
-        onCreateContextMenu(new ContextMenuWrapper(menu), v, menuInfo);
-    }
+	@Override
+	public void onContextMenuClosed(ContextMenu menu) {
+		mActivity.onContextMenuClosed(menu);
+	}
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-            ContextMenuInfo menuInfo) {
-        mActivity.onCreateContextMenu(menu, v, menuInfo);
-    }
+	@Override
+	public final void onCreateContextMenu(android.view.ContextMenu menu,
+			View v, ContextMenuInfo menuInfo) {
+		onCreateContextMenu(new ContextMenuWrapper(menu), v, menuInfo);
+	}
 
-    @Override
-    public final void onCreateOptionsMenu(android.view.Menu menu,
-            android.view.MenuInflater inflater) {
-        onCreateOptionsMenu(new MenuWrapper(menu), getMenuInflater());
-    }
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		mActivity.onCreateContextMenu(menu, v, menuInfo);
+	}
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+	@Override
+	public final void onCreateOptionsMenu(android.view.Menu menu,
+			android.view.MenuInflater inflater) {
+		onCreateOptionsMenu(new MenuWrapper(menu), getMenuInflater());
+	}
 
-    }
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
-    @Override
-    public final View onCreateView(android.view.LayoutInflater inflater,
-            ViewGroup container, Bundle savedInstanceState) {
-        ContextMenuDecorView decorView = new ContextMenuDecorView(mActivity);
-        decorView.setProvider(this);
-        final View view = onCreateView(getLayoutInflater(), decorView, savedInstanceState);
-        if (view == null) {
-            return null;
-        }
-        decorView.addView(view);
-        return decorView;
-    }
+	}
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
+	@Override
+	public final View onCreateView(android.view.LayoutInflater inflater,
+			ViewGroup container, Bundle savedInstanceState) {
+		ContextMenuDecorView decorView = new ContextMenuDecorView(mActivity);
+		decorView.setProvider(this);
+		final View view = onCreateView(getLayoutInflater(), decorView,
+				savedInstanceState);
+		if (view == null) {
+			return null;
+		}
+		decorView.addView(view);
+		return decorView;
+	}
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (mChildFragmentManager != null && mChildFragmentManager.mActive != null
-                && mDetachChildFragments) {
-            for (Fragment fragment : mChildFragmentManager.mActive) {
-                if (fragment == null || !fragment.mFromLayout) {
-                    continue;
-                }
-                mChildFragmentManager.detachFragment(fragment, 0, 0);
-            }
-        }
-    }
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		return super.onCreateView(inflater, container, savedInstanceState);
+	}
 
-    public void onInflate(Activity activity, AttributeSet attrs,
-            Bundle savedInstanceState) {
-        super.onInflate(activity, attrs, savedInstanceState);
-    }
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		if (mChildFragmentManager != null
+				&& mChildFragmentManager.mActive != null
+				&& mDetachChildFragments) {
+			for (Fragment fragment : mChildFragmentManager.mActive) {
+				if (fragment == null || !fragment.mFromLayout) {
+					continue;
+				}
+				mChildFragmentManager.detachFragment(fragment, 0, 0);
+			}
+		}
+	}
 
-    @Override
-    public final void onInflate(android.app.Activity activity,
-            AttributeSet attrs, Bundle savedInstanceState) {
-        onInflate((Activity) activity, attrs, savedInstanceState);
-    }
+	public void onInflate(Activity activity, AttributeSet attrs,
+			Bundle savedInstanceState) {
+		super.onInflate(activity, attrs, savedInstanceState);
+	}
 
-    @Override
-    public final boolean onOptionsItemSelected(android.view.MenuItem item) {
-        return onOptionsItemSelected(new MenuItemWrapper(item));
-    }
+	@Override
+	public final void onInflate(android.app.Activity activity,
+			AttributeSet attrs, Bundle savedInstanceState) {
+		onInflate((Activity) activity, attrs, savedInstanceState);
+	}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return false;
-    }
+	@Override
+	public final boolean onOptionsItemSelected(android.view.MenuItem item) {
+		return onOptionsItemSelected(new MenuItemWrapper(item));
+	}
 
-    @Override
-    public final void onPrepareOptionsMenu(android.view.Menu menu) {
-        onPrepareOptionsMenu(new MenuWrapper(menu));
-    }
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		return false;
+	}
 
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-    }
+	@Override
+	public final void onPrepareOptionsMenu(android.view.Menu menu) {
+		onPrepareOptionsMenu(new MenuWrapper(menu));
+	}
 
-    /**
-     * Use {@link #onViewCreated(View, Bundle)} instead
-     */
-    @Deprecated
-    public void onViewCreated(View view) {
+	@Override
+	public void onPrepareOptionsMenu(Menu menu) {
+	}
 
-    }
+	/**
+	 * Use {@link #onViewCreated(View, Bundle)} instead
+	 */
+	@Deprecated
+	public void onViewCreated(View view) {
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        onViewCreated(view);
-    }
+	}
 
-    public boolean openContextMenu(View v) {
-        return v.showContextMenu();
-    }
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		onViewCreated(view);
+	}
 
-    @Override
-    void performActivityCreated(Bundle savedInstanceState) {
-        fixClassloader(savedInstanceState);
-        super.performActivityCreated(savedInstanceState);
-    }
+	public boolean openContextMenu(View v) {
+		return v.showContextMenu();
+	}
 
-    @Override
-    public void registerForContextMenu(View view) {
-        if (HoloEverywhere.WRAP_TO_NATIVE_CONTEXT_MENU) {
-            super.registerForContextMenu(view);
-        } else {
-            mActivity.registerForContextMenu(view, this);
-        }
-    }
+	@Override
+	void performActivityCreated(Bundle savedInstanceState) {
+		fixClassloader(savedInstanceState);
+		super.performActivityCreated(savedInstanceState);
+	}
 
-    /**
-     * If true this fragment will be detach all inflated child fragments after
-     * destory view
-     */
-    public void setDetachChildFragments(boolean detachChildFragments) {
-        mDetachChildFragments = detachChildFragments;
-    }
+	@Override
+	public void registerForContextMenu(View view) {
+		if (HoloEverywhere.WRAP_TO_NATIVE_CONTEXT_MENU) {
+			super.registerForContextMenu(view);
+		} else {
+			mActivity.registerForContextMenu(view, this);
+		}
+	}
 
-    @Override
-    public void setInitialSavedState(SavedState state) {
-        if (state != null) {
-            fixClassloader(state.mState);
-        }
-        super.setInitialSavedState(state);
-    }
+	/**
+	 * If true this fragment will be detach all inflated child fragments after
+	 * destory view
+	 */
+	public void setDetachChildFragments(boolean detachChildFragments) {
+		mDetachChildFragments = detachChildFragments;
+	}
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser) {
-            fixClassloader(mSavedFragmentState);
-        }
-        super.setUserVisibleHint(isVisibleToUser);
-    }
+	@Override
+	public void setInitialSavedState(SavedState state) {
+		if (state != null) {
+			fixClassloader(state.mState);
+		}
+		super.setInitialSavedState(state);
+	}
 
-    public abstract ActionMode startActionMode(ActionMode.Callback callback);
+	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		if (isVisibleToUser) {
+			fixClassloader(mSavedFragmentState);
+		}
+		super.setUserVisibleHint(isVisibleToUser);
+	}
 
-    @Override
-    public void unregisterForContextMenu(View view) {
-        if (HoloEverywhere.WRAP_TO_NATIVE_CONTEXT_MENU) {
-            super.unregisterForContextMenu(view);
-        } else {
-            mActivity.unregisterForContextMenu(view);
-        }
-    }
+	public abstract ActionMode startActionMode(ActionMode.Callback callback);
+
+	@Override
+	public void unregisterForContextMenu(View view) {
+		if (HoloEverywhere.WRAP_TO_NATIVE_CONTEXT_MENU) {
+			super.unregisterForContextMenu(view);
+		} else {
+			mActivity.unregisterForContextMenu(view);
+		}
+	}
 }

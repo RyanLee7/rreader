@@ -20,31 +20,31 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <header
-        holo:fragment="org.quantumbadger.redreader.settings.SettingsFragment"
+        holo:fragment="com.ryan.redreader.settings.SettingsFragment"
         holo:title="@string/prefs_category_appearance">
         <extra android:name="panel" android:value="appearance" />
     </header>
 
     <header
-        holo:fragment="org.quantumbadger.redreader.settings.SettingsFragment"
+        holo:fragment="com.ryan.redreader.settings.SettingsFragment"
         holo:title="@string/prefs_category_behaviour">
         <extra android:name="panel" android:value="behaviour" />
     </header>
 
     <header
-        holo:fragment="org.quantumbadger.redreader.settings.SettingsFragment"
+        holo:fragment="com.ryan.redreader.settings.SettingsFragment"
         holo:title="@string/prefs_category_cache">
         <extra android:name="panel" android:value="cache" />
     </header>
 
     <header
-        holo:fragment="org.quantumbadger.redreader.settings.SettingsFragment"
+        holo:fragment="com.ryan.redreader.settings.SettingsFragment"
         holo:title="@string/prefs_category_menus">
         <extra android:name="panel" android:value="menus" />
     </header>
 
     <header
-        holo:fragment="org.quantumbadger.redreader.settings.SettingsFragment"
+        holo:fragment="com.ryan.redreader.settings.SettingsFragment"
         holo:title="@string/prefs_category_about">
         <extra android:name="panel" android:value="about" />
     </header>

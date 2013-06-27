@@ -38,13 +38,17 @@ public abstract class PropertiesDialog extends DialogFragment {
 	// Workaround for HoloEverywhere bug?
 	private volatile boolean alreadyCreated = false;
 
+	// 返回标题
 	protected abstract String getTitle(Context context);
+
 	protected abstract void prepare(Context context, LinearLayout items);
 
 	@Override
 	public final Dialog onCreateDialog(final Bundle savedInstanceState) {
 
-		if(alreadyCreated) return getDialog();
+		// 只创建一次
+		if (alreadyCreated)
+			return getDialog();
 		alreadyCreated = true;
 
 		super.onCreateDialog(savedInstanceState);
@@ -52,16 +56,15 @@ public abstract class PropertiesDialog extends DialogFragment {
 		final Context context = getSupportActivity();
 
 		final TypedArray attr = context.obtainStyledAttributes(new int[] {
-				R.attr.rrListHeaderTextCol,
-				R.attr.rrListDividerCol,
-				R.attr.rrCommentBodyCol
-		});
+				R.attr.rrListHeaderTextCol, R.attr.rrListDividerCol,
+				R.attr.rrCommentBodyCol });
 
 		rrListHeaderTextCol = attr.getColor(0, 0);
 		rrListDividerCol = attr.getColor(1, 0);
 		rrCommentBodyCol = attr.getColor(2, 0);
 
-		final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		final AlertDialog.Builder builder = new AlertDialog.Builder(
+				getActivity());
 
 		final LinearLayout items = new LinearLayout(context);
 		items.setOrientation(LinearLayout.VERTICAL);
@@ -78,23 +81,29 @@ public abstract class PropertiesDialog extends DialogFragment {
 		return builder.create();
 	}
 
-	protected final LinearLayout propView(final Context context, final int titleRes, final int textRes, final boolean firstInList) {
-		return propView(context, context.getString(titleRes), getString(textRes), firstInList);
+	protected final LinearLayout propView(final Context context,
+			final int titleRes, final int textRes, final boolean firstInList) {
+		return propView(context, context.getString(titleRes),
+				getString(textRes), firstInList);
 	}
 
-	protected final LinearLayout propView(final Context context, final int titleRes, final CharSequence text, final boolean firstInList) {
+	protected final LinearLayout propView(final Context context,
+			final int titleRes, final CharSequence text,
+			final boolean firstInList) {
 		return propView(context, context.getString(titleRes), text, firstInList);
 	}
 
 	// TODO xml?
-	protected final LinearLayout propView(final Context context, final String title, final CharSequence text, final boolean firstInList) {
+	protected final LinearLayout propView(final Context context,
+			final String title, final CharSequence text,
+			final boolean firstInList) {
 
 		final int paddingPixels = General.dpToPixels(context, 6);
 
 		final LinearLayout prop = new LinearLayout(context);
 		prop.setOrientation(LinearLayout.VERTICAL);
 
-		if(!firstInList) {
+		if (!firstInList) {
 			final View divider = new View(context);
 			divider.setMinimumHeight(General.dpToPixels(context, 1));
 			divider.setBackgroundColor(rrListDividerCol);

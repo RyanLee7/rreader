@@ -35,7 +35,12 @@
 package com.ryan.redreader.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
+import android.text.Html;
+import android.view.View;
+
 import org.holoeverywhere.widget.LinearLayout;
 import org.holoeverywhere.widget.TextView;
 import com.ryan.redreader.R;
@@ -62,10 +67,13 @@ public final class ChangelogDialog extends PropertiesDialog {
 	protected void prepare(Context context, LinearLayout items) {
 
 		final int outerPaddingPx = General.dpToPixels(context, 12);
+
+		// 设置items里的控件与父控件边界的距离
 		items.setPadding(outerPaddingPx, 0, outerPaddingPx, outerPaddingPx);
 
 		try {
-			final BufferedReader br = new BufferedReader(new InputStreamReader(context.getAssets().open("changelog.txt")));
+			final BufferedReader br = new BufferedReader(new InputStreamReader(
+					context.getAssets().open("changelog.txt")));
 
 			int curVersionCode = -1;
 			String curVersionName = null;
@@ -73,20 +81,25 @@ public final class ChangelogDialog extends PropertiesDialog {
 			boolean firstInList = true;
 
 			String line;
-			while((line = br.readLine()) != null) {
+			// 按格式解析文件
+			// 38/1.7.4
+			// Bugfix for user profile dialog crash
+			// Minor appearance improvement
+			while ((line = br.readLine()) != null) {
 
-				if(line.length() == 0) {
+				if (line.length() == 0) {
 
 					curVersionCode = -1;
 					curVersionName = null;
 
-				} else if(curVersionName == null) {
+				} else if (curVersionName == null) {
 
 					final String[] lineSplit = line.split("/");
 					curVersionCode = Integer.parseInt(lineSplit[0]);
 					curVersionName = lineSplit[1];
 
-					final ListSectionHeader header = new ListSectionHeader(context);
+					final ListSectionHeader header = new ListSectionHeader(
+							context);
 					header.reset(curVersionName);
 					header.setColor(Color.rgb(0x00, 0x99, 0xCC));
 					items.addView(header);
@@ -110,7 +123,36 @@ public final class ChangelogDialog extends PropertiesDialog {
 
 			}
 
-		} catch(IOException e) {
+			// 加入注册
+			final LinearLayout accessItem = new LinearLayout(context);
+			final int paddingPx = General.dpToPixels(context, 6);
+			accessItem.setPadding(paddingPx, paddingPx, paddingPx, 0);
+
+			final TextView bullet = new TextView(context);
+			bullet.setText("•  ");
+			accessItem.addView(bullet);
+
+			final TextView text = new TextView(context);
+			String redditLink = "<a href=\"#\"> 访问reddit.com	</a>";
+			text.setText(Html.fromHtml(redditLink));
+			text.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					Intent intent = new Intent();
+					intent.setAction("android.intent.action.VIEW");
+					Uri content_url = Uri.parse("http://www.reddit.com");
+					intent.setData(content_url);
+					startActivity(intent);
+				}
+			});
+
+			accessItem.addView(text);
+
+			items.addView(accessItem);
+
+		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}

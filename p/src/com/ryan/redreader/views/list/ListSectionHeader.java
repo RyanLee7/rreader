@@ -24,6 +24,12 @@ import org.holoeverywhere.widget.TextView;
 import com.ryan.redreader.R;
 
 // TODO doesn't need to be in a frame layout
+/**
+ * 设置中“关于”页面用到的类
+ * 
+ * @author ryanlee
+ * 
+ */
 public class ListSectionHeader extends FrameLayout {
 
 	private final TextView textView;
@@ -33,7 +39,7 @@ public class ListSectionHeader extends FrameLayout {
 
 		super(context);
 		final View view = inflate(context, R.layout.list_sectionheader, null);
-		textView = (TextView)view.findViewById(R.id.list_sectionheader_text);
+		textView = (TextView) view.findViewById(R.id.list_sectionheader_text);
 		lineView = view.findViewById(R.id.list_sectionheader_line);
 		addView(view);
 	}

@@ -893,7 +893,7 @@
     <string name="general_unknown">未知</string>
     <string name="action_search">搜索</string>
     <string name="search_subreddit_restrict">高级搜索</string>
-    <string name="title_changelog">最近更新</string>
+    <string name="title_changelog">关于红阅</string>
     <string name="pref_behaviour_commentsort_key">pref_behaviour_commentsort</string>
     <string name="pref_behaviour_commentsort">默认评论排序</string>
     <!-- 2013-05-18 -->
