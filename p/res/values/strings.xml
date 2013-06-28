@@ -128,28 +128,28 @@
     <string name="options_settings">设置</string>
     <string name="options_submit_post">提交帖子</string>
     <string name="options_refresh">更新</string>
-    <string name="options_refresh_subreddits">更新子目录</string>
+    <string name="options_refresh_subreddits">更新数据</string>
     <string name="options_refresh_posts">更新帖子</string>
     <string name="options_refresh_comments">更新评论</string>
     <string name="options_past">过去的版本</string>
     <string name="options_past_posts">过去的帖子列表版本</string>
     <string name="options_past_comments">过去的评论列表版本</string>
     <string name="options_sort">排序</string>
-    <string name="options_sort_subreddits">子目录排序</string>
+    <string name="options_sort_subreddits">话题排序</string>
     <string name="options_sort_posts">帖子排序</string>
     <string name="options_sort_comments">评论排序</string>
     <!-- Main Menu -->
 
     <string name="mainmenu_frontpage">首页</string>
-    <string name="mainmenu_all">所有子目录</string>
-    <string name="mainmenu_custom">定制子目录</string>
-    <string name="mainmenu_custom_invalid_name">无效子目录名.</string>
+    <string name="mainmenu_all">所有话题</string>
+    <string name="mainmenu_custom">查找话题</string>
+    <string name="mainmenu_custom_invalid_name">无效话题.</string>
     <string name="mainmenu_saved">保存的帖子</string>
     <string name="mainmenu_hidden">隐藏的帖子</string>
     <string name="mainmenu_upvoted">投正票的帖子</string>
     <string name="mainmenu_inbox">收件箱</string>
     <string name="mainmenu_profile">个人资料</string>
-    <string name="mainmenu_header_subreddits">子目录</string>
+    <string name="mainmenu_header_subreddits">话题</string>
     <!-- General Listing -->
 
     <string name="listing_cached">从缓存查看</string>
@@ -216,7 +216,7 @@
     <string name="action_share">分享</string>
     <string name="action_share_comments">分享评论</string>
     <string name="action_copy">复制</string>
-    <string name="action_gotosubreddit">前往子目录</string>
+    <string name="action_gotosubreddit">前往此话题</string>
     <string name="action_reply">回复</string>
     <string name="action_edit">编辑</string>
     <string name="action_user_profile">用户信息</string>
@@ -258,7 +258,7 @@
     <string name="comment_reply_done">回复已发送，刷新可见</string>
     <string name="comment_edit_done">回复已编辑，刷新可见</string>
     <string name="post_submit_title_hint">标题</string>
-    <string name="post_submit_subreddit_hint">子目录</string>
+    <string name="post_submit_subreddit_hint">话题</string>
     <string name="post_captcha_title">验证码</string>
     <string name="post_captcha_submit_button">提交</string>
     <string name="post_submit_done">帖子提交</string>
@@ -272,8 +272,8 @@
 
     <string name="error_403_title">无效用户</string>
     <string name="error_403_message">该用户没有相关权限</string>
-    <string name="error_subreddit_required_title">必需的子目录</string>
-    <string name="error_subreddit_required_message">你必须选择一个子目录</string>
+    <string name="error_subreddit_required_title">必需的话题</string>
+    <string name="error_subreddit_required_message">你必须选择一个话题 </string>
     <string name="error_bad_captcha_title">验证码不正确</string>
     <string name="error_bad_captcha_message">验证码不正确，请重新输入</string>
     <string name="error_404_title">找不到页面</string>
@@ -329,7 +329,7 @@
     <string name="props_created">创建</string>
     <string name="props_edited">编辑</string>
     <string name="props_score">得分</string>
-    <string name="props_subreddit">子目录</string>
+    <string name="props_subreddit">话题</string>
     <string name="props_url">URL</string>
     <string name="props_num_comments">评论数</string>
     <string name="props_body_markdown">主体</string>
@@ -381,7 +381,7 @@
     <string name="error_toast_no_urls_in_comment">评论中没有URL</string>
     <string name="error_toast_no_urls_in_self">正文中没有URL</string>
     <string name="error_toast_parent_post_not_downloaded">父帖子还未下载</string>
-    <string name="download_subreddits">下载子目录…</string>
+    <string name="download_subreddits">下载话题…</string>
     <string name="subtitle_points">点击</string>
     <string name="subtitle_by">由</string>
     <string name="subtitle_to">发布到</string>
