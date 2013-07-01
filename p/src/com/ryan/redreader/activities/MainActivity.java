@@ -122,7 +122,7 @@ public class MainActivity extends RefreshableActivity implements
 
 		setContentView(layout);
 
-		// ���½���
+		// 刷新主界面
 		doRefresh(RefreshableFragment.MAIN, false);
 
 		RedditAccountManager.getInstance(this).addUpdateListener(this);
@@ -285,6 +285,9 @@ public class MainActivity extends RefreshableActivity implements
 		requestRefresh(RefreshableFragment.ALL, false);
 	}
 
+	/*
+	 * 刷新界面
+	 */
 	@SuppressLint("NewApi")
 	@Override
 	protected void doRefresh(final RefreshableFragment which,
@@ -368,6 +371,7 @@ public class MainActivity extends RefreshableActivity implements
 
 		} else {
 
+			// 刷新主界面
 			if (which == RefreshableFragment.ALL
 					|| which == RefreshableFragment.MAIN) {
 				mainMenuFragment = MainMenuFragment.newInstance(force);

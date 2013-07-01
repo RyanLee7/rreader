@@ -50,7 +50,8 @@ import com.ryan.redreader.views.liststatus.LoadingView;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class MainMenuFragment extends Fragment implements MainMenuSelectionListener {
+public class MainMenuFragment extends Fragment implements
+		MainMenuSelectionListener {
 
 	private MainMenuAdapter adapter;
 
@@ -63,14 +64,27 @@ public class MainMenuFragment extends Fragment implements MainMenuSelectionListe
 		FRONTPAGE, PROFILE, INBOX, LIKED, SAVED, HIDDEN, CUSTOM, ALL
 	}
 
+	/**
+	 * 返回MainMenuFragment的一个实例
+	 * 
+	 * @param force
+	 * @return
+	 */
 	public static MainMenuFragment newInstance(final boolean force) {
 
 		final MainMenuFragment f = new MainMenuFragment();
 
+		// Bundle的长度为1
 		final Bundle bundle = new Bundle(1);
 		bundle.putBoolean("force", force);
 		f.setArguments(bundle);
 
+		/*
+		 * public void setArguments(Bundle args)
+		 * 
+		 * 该方法给该Fragment对象提供构建参数。它只。在Fragment对象被绑定到它Activity对象之前被调用，
+		 * 也就是说在构建该Fragment对象之后，应该立即调用。该方法提供的参数会在Fragment对象销毁和创建期间被保留。
+		 */
 		return f;
 	}
 
@@ -80,19 +94,25 @@ public class MainMenuFragment extends Fragment implements MainMenuSelectionListe
 		force = getArguments().getBoolean("force");
 	}
 
+	/*
+	 * 返回这个Fragment的布局
+	 */
 	@Override
-	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
+	public View onCreateView(final LayoutInflater inflater,
+			final ViewGroup container, final Bundle savedInstanceState) {
 
 		// TODO load menu position?
 
 		final Context context;
-		if(container != null) {
-			context = container.getContext(); // TODO just use the inflater's context in every case?
+		if (container != null) {
+			context = container.getContext(); // TODO just use the inflater's
+												// context in every case?
 		} else {
 			context = inflater.getContext();
 		}
 
-		final RedditAccount user = RedditAccountManager.getInstance(context).getDefaultAccount();
+		final RedditAccount user = RedditAccountManager.getInstance(context)
+				.getDefaultAccount();
 
 		final LinearLayout outer = new LinearLayout(context);
 		outer.setOrientation(LinearLayout.VERTICAL);
@@ -100,7 +120,8 @@ public class MainMenuFragment extends Fragment implements MainMenuSelectionListe
 		notifications = new LinearLayout(context);
 		notifications.setOrientation(LinearLayout.VERTICAL);
 
-		loadingView = new LoadingView(context, R.string.download_waiting, true, true);
+		loadingView = new LoadingView(context, R.string.download_waiting, true,
+				true);
 
 		final ListView lv = new ListView(context);
 		lv.setDivider(null);
@@ -114,14 +135,17 @@ public class MainMenuFragment extends Fragment implements MainMenuSelectionListe
 		lv.setAdapter(adapter);
 
 		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			public void onItemClick(final AdapterView<?> adapterView, final View view, final int position, final long id) {
+			public void onItemClick(final AdapterView<?> adapterView,
+					final View view, final int position, final long id) {
 				adapter.clickOn(position);
 			}
 		});
 
-		final AtomicReference<APIResponseHandler.SubredditResponseHandler> accessibleSubredditResponseHandler = new AtomicReference<APIResponseHandler.SubredditResponseHandler>(null);
+		final AtomicReference<APIResponseHandler.SubredditResponseHandler> accessibleSubredditResponseHandler = new AtomicReference<APIResponseHandler.SubredditResponseHandler>(
+				null);
 
-		final APIResponseHandler.SubredditResponseHandler responseHandler = new APIResponseHandler.SubredditResponseHandler(context) {
+		final APIResponseHandler.SubredditResponseHandler responseHandler = new APIResponseHandler.SubredditResponseHandler(
+				context) {
 
 			@Override
 			protected void onDownloadNecessary() {
@@ -138,16 +162,20 @@ public class MainMenuFragment extends Fragment implements MainMenuSelectionListe
 			}
 
 			@Override
-			protected void onSuccess(final List<RedditSubreddit> result, final long timestamp) {
+			protected void onSuccess(final List<RedditSubreddit> result,
+					final long timestamp) {
 
-				if(result.size() == 0) {
+				if (result.size() == 0) {
 					// Just get the defaults instead
 					new Handler(Looper.getMainLooper()).post(new Runnable() {
 						public void run() {
 							notifications.removeView(loadingView);
-							RedditAPI.getUserSubreddits(CacheManager.getInstance(context),
-									accessibleSubredditResponseHandler.get(), RedditAccountManager.getAnon(),
-									force ? CacheRequest.DownloadType.FORCE : CacheRequest.DownloadType.IF_NECESSARY,
+							RedditAPI.getUserSubreddits(
+									CacheManager.getInstance(context),
+									accessibleSubredditResponseHandler.get(),
+									RedditAccountManager.getAnon(),
+									force ? CacheRequest.DownloadType.FORCE
+											: CacheRequest.DownloadType.IF_NECESSARY,
 									force, context);
 						}
 					});
@@ -156,7 +184,8 @@ public class MainMenuFragment extends Fragment implements MainMenuSelectionListe
 
 					adapter.setSubreddits(result);
 
-					if(loadingView != null) loadingView.setDone(R.string.download_done);
+					if (loadingView != null)
+						loadingView.setDone(R.string.download_done);
 				}
 			}
 
@@ -166,14 +195,19 @@ public class MainMenuFragment extends Fragment implements MainMenuSelectionListe
 			}
 
 			@Override
-			protected void onFailure(final RequestFailureType type, final Throwable t, final StatusLine status, final String readableMessage) {
+			protected void onFailure(final RequestFailureType type,
+					final Throwable t, final StatusLine status,
+					final String readableMessage) {
 
-				if(loadingView != null) loadingView.setDone(R.string.download_failed);
-				final RRError error = General.getGeneralErrorForFailure(context, type, t, status);
+				if (loadingView != null)
+					loadingView.setDone(R.string.download_failed);
+				final RRError error = General.getGeneralErrorForFailure(
+						context, type, t, status);
 
 				new Handler(Looper.getMainLooper()).post(new Runnable() {
 					public void run() {
-						notifications.addView(new ErrorView(getSupportActivity(), error));
+						notifications.addView(new ErrorView(
+								getSupportActivity(), error));
 					}
 				});
 			}
@@ -181,12 +215,15 @@ public class MainMenuFragment extends Fragment implements MainMenuSelectionListe
 			@Override
 			protected void onFailure(final APIFailureType type) {
 
-				if(loadingView != null) loadingView.setDone(R.string.download_failed);
-				final RRError error = General.getGeneralErrorForFailure(context, type);
+				if (loadingView != null)
+					loadingView.setDone(R.string.download_failed);
+				final RRError error = General.getGeneralErrorForFailure(
+						context, type);
 
 				new Handler(Looper.getMainLooper()).post(new Runnable() {
 					public void run() {
-						notifications.addView(new ErrorView(getSupportActivity(), error));
+						notifications.addView(new ErrorView(
+								getSupportActivity(), error));
 					}
 				});
 			}
@@ -194,8 +231,10 @@ public class MainMenuFragment extends Fragment implements MainMenuSelectionListe
 
 		accessibleSubredditResponseHandler.set(responseHandler);
 
-		RedditAPI.getUserSubreddits(CacheManager.getInstance(context), responseHandler, user,
-				force ? CacheRequest.DownloadType.FORCE : CacheRequest.DownloadType.IF_NECESSARY, force, context);
+		RedditAPI.getUserSubreddits(CacheManager.getInstance(context),
+				responseHandler, user, force ? CacheRequest.DownloadType.FORCE
+						: CacheRequest.DownloadType.IF_NECESSARY, force,
+				context);
 
 		outer.addView(lv);
 		lv.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -209,10 +248,12 @@ public class MainMenuFragment extends Fragment implements MainMenuSelectionListe
 	}
 
 	public void onSelected(final MainMenuAction type, final String name) {
-		((MainMenuSelectionListener)getSupportActivity()).onSelected(type, name);
+		((MainMenuSelectionListener) getSupportActivity()).onSelected(type,
+				name);
 	}
 
 	public void onSelected(final RedditSubreddit subreddit) {
-		((MainMenuSelectionListener)getSupportActivity()).onSelected(subreddit);
+		((MainMenuSelectionListener) getSupportActivity())
+				.onSelected(subreddit);
 	}
 }

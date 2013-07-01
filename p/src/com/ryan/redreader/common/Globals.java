@@ -22,7 +22,6 @@ public class Globals {
 			if (connectivity != null) {
 				NetworkInfo info = connectivity.getActiveNetworkInfo();
 				if (info != null && info.isConnected()) {
-					// �жϵ�ǰ�����Ƿ��Ѿ�����
 					if (info.getState() == NetworkInfo.State.CONNECTED) {
 						return true;
 					}

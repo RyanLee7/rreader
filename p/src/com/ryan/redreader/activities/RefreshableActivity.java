@@ -25,8 +25,12 @@ import java.util.EnumSet;
 public abstract class RefreshableActivity extends Activity {
 
 	private boolean paused = false;
-	private final EnumSet<RefreshableFragment> refreshOnResume = EnumSet.noneOf(RefreshableFragment.class);
+	private final EnumSet<RefreshableFragment> refreshOnResume = EnumSet
+			.noneOf(RefreshableFragment.class);
 
+	/**
+	 * @author ryanlee MAIN MAIN_RELAYOUT POSTS COMMENTS RESTART ALL
+	 */
 	public enum RefreshableFragment {
 		MAIN, MAIN_RELAYOUT, POSTS, COMMENTS, RESTART, ALL
 	}
@@ -44,7 +48,7 @@ public abstract class RefreshableActivity extends Activity {
 
 		paused = false;
 
-		for(final RefreshableFragment f : refreshOnResume) {
+		for (final RefreshableFragment f : refreshOnResume) {
 			doRefreshNow(f, false);
 		}
 
@@ -53,7 +57,7 @@ public abstract class RefreshableActivity extends Activity {
 
 	protected void doRefreshNow(RefreshableFragment which, boolean force) {
 
-		if(which == RefreshableFragment.RESTART) {
+		if (which == RefreshableFragment.RESTART) {
 
 			// http://stackoverflow.com/a/3419987/1526861
 			final Intent intent = getIntent();
@@ -70,15 +74,18 @@ public abstract class RefreshableActivity extends Activity {
 
 	protected abstract void doRefresh(RefreshableFragment which, boolean force);
 
-	public final void requestRefresh(final RefreshableFragment which, final boolean force) {
+	public final void requestRefresh(final RefreshableFragment which,
+			final boolean force) {
 		runOnUiThread(new Runnable() {
 			public void run() {
-				if(!paused) {
+				if (!paused) {
 					doRefreshNow(which, force);
 				} else {
-					refreshOnResume.add(which); // TODO this doesn't remember "force" (but it doesn't really matter...)
+					refreshOnResume.add(which); // TODO this doesn't remember
+												// "force" (but it doesn't
+												// really matter...)
 				}
-			}}
-		);
+			}
+		});
 	}
 }
