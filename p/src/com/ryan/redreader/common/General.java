@@ -168,7 +168,7 @@ public final class General {
 	}
 
 	/**
-	 * �ǲ���ƽ��ģʽ
+	 * 判断是不是平板模式
 	 * 
 	 * @param context
 	 * @param sharedPreferences
@@ -196,7 +196,7 @@ public final class General {
 
 	/**
 	 * 
-	 * ��ǰ����ģʽ�ǲ���wifi
+	 * 是不是WIFI网络
 	 * 
 	 * @param context
 	 * @return
@@ -204,11 +204,10 @@ public final class General {
 	public static boolean isConnectionWifi(final Context context) {
 		final ConnectivityManager cm = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
-		// ��⵱ǰwifi��״̬
+
 		final NetworkInfo info = cm
 				.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-		// ryan add.�ж��ǲ���WIFI����
-		Globals.NETWORK_ENABLE = info != null && info.isConnected();
+
 		return info != null && info.isConnected();
 	}
 

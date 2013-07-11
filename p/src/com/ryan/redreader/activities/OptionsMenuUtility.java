@@ -449,13 +449,22 @@ public final class OptionsMenuUtility {
 		public void onSortSelected(CommentListingController.Sort order);
 	}
 
+	/**
+	 * 设置标题
+	 * 
+	 * @param activity
+	 * @param title
+	 */
 	public static void fixActionBar(final Activity activity, final String title) {
 		final TypedArray attr = activity
 				.obtainStyledAttributes(new int[] { R.attr.rrActionBarCol });
 		final int actionbarCol = attr.getColor(0, 0);
+
+		// 设置标题栏背景颜色
 		activity.getSupportActionBar().setBackgroundDrawable(
 				new ColorDrawable(actionbarCol));
 
+		// 设置标题和标题颜色，白色
 		final BetterSSB sb = new BetterSSB();
 		sb.append(title, BetterSSB.FOREGROUND_COLOR, Color.WHITE, 0, 1f);
 		activity.getSupportActionBar().setTitle(sb.get());

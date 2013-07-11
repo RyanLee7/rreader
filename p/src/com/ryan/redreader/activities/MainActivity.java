@@ -111,7 +111,7 @@ public class MainActivity extends RefreshableActivity implements
 
 		final View layout;
 
-		//
+		// 平板
 		if (twoPane)
 			layout = getLayoutInflater().inflate(R.layout.main_double);
 		else
@@ -371,12 +371,18 @@ public class MainActivity extends RefreshableActivity implements
 
 		} else {
 
+			// 手机模式
 			// 刷新主界面
 			if (which == RefreshableFragment.ALL
 					|| which == RefreshableFragment.MAIN) {
 				mainMenuFragment = MainMenuFragment.newInstance(force);
+
+				// FragmentManager能够实现管理activity中fragment.
+				// 通过调用activity的getFragmentManager()取得它的实例.
 				final FragmentTransaction transaction = getSupportFragmentManager()
 						.beginTransaction();
+
+				// 替换掉当前的布局
 				transaction.replace(R.id.main_single_frame, mainMenuFragment,
 						"main_fragment");
 				transaction.commit();

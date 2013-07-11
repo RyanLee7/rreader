@@ -47,12 +47,25 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
+/**
+ * 账号
+ * 
+ * @author ryanlee
+ * 
+ */
 public class RedditAccount {
 
+	// 登陆结果
 	public static enum LoginResult {
 		SUCCESS, INTERNAL_ERROR, CONNECTION_ERROR, REQUEST_ERROR, JSON_ERROR, WRONG_PASSWORD, UNKNOWN_REDDIT_ERROR, RATELIMIT
 	}
 
+	/**
+	 * 静态类，数据唯一
+	 * 
+	 * @author ryanlee
+	 * 
+	 */
 	public static class LoginResultPair {
 		public final LoginResult result;
 		public final RedditAccount account;
@@ -66,7 +79,13 @@ public class RedditAccount {
 			this(result, null, extraMessage);
 		}
 
-		public LoginResultPair(final LoginResult result, final RedditAccount account, final String extraMessage) {
+		/**
+		 * @param result
+		 * @param account
+		 * @param extraMessage
+		 */
+		public LoginResultPair(final LoginResult result,
+				final RedditAccount account, final String extraMessage) {
 			this.result = result;
 			this.account = account;
 			this.extraMessage = extraMessage;
@@ -77,9 +96,11 @@ public class RedditAccount {
 	private final PersistentCookieStore cookies;
 	public final long priority;
 
-	public RedditAccount(final String username, final String modhash, final PersistentCookieStore cookies, final long priority) {
+	public RedditAccount(final String username, final String modhash,
+			final PersistentCookieStore cookies, final long priority) {
 
-		if(username == null) throw new RuntimeException("Null user in RedditAccount");
+		if (username == null)
+			throw new RuntimeException("Null user in RedditAccount");
 
 		this.username = username.trim();
 		this.modhash = modhash;
@@ -87,12 +108,20 @@ public class RedditAccount {
 		this.priority = priority;
 	}
 
+	/**
+	 * 是不是匿名登陆
+	 * 
+	 * @return
+	 */
 	public boolean isAnonymous() {
 		return username.length() == 0;
 	}
 
-	public static LoginResultPair login(final Context context, final String username, final String password, final HttpClient client) {
+	public static LoginResultPair login(final Context context,
+			final String username, final String password,
+			final HttpClient client) {
 
+		// 用户名密码
 		final ArrayList<NameValuePair> fields = new ArrayList<NameValuePair>(3);
 		fields.add(new BasicNameValuePair("user", username));
 		fields.add(new BasicNameValuePair("passwd", password));
@@ -100,14 +129,23 @@ public class RedditAccount {
 
 		// TODO put somewhere else
 		final HttpParams params = new BasicHttpParams();
-		params.setParameter(CoreProtocolPNames.USER_AGENT, Constants.ua(context));
-		params.setParameter(CoreConnectionPNames.SO_TIMEOUT, 20000); // TODO remove hardcoded params, put in network prefs
+		params.setParameter(CoreProtocolPNames.USER_AGENT,
+				Constants.ua(context));
+		params.setParameter(CoreConnectionPNames.SO_TIMEOUT, 20000); // TODO
+																		// remove
+																		// hardcoded
+																		// params,
+																		// put
+																		// in
+																		// network
+																		// prefs
 		params.setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 20000);
-		params.setParameter(CoreConnectionPNames.MAX_HEADER_COUNT,100);
+		params.setParameter(CoreConnectionPNames.MAX_HEADER_COUNT, 100);
 		params.setParameter(ClientPNames.HANDLE_REDIRECTS, true);
 		params.setParameter(ClientPNames.MAX_REDIRECTS, 5);
 
-		final HttpPost request = new HttpPost("https://ssl.reddit.com/api/login");
+		final HttpPost request = new HttpPost(
+				"https://ssl.reddit.com/api/login");
 		request.setParams(params);
 
 		try {
@@ -132,7 +170,7 @@ public class RedditAccount {
 			return new LoginResultPair(LoginResult.CONNECTION_ERROR);
 		}
 
-		if(status.getStatusCode() != 200) {
+		if (status.getStatusCode() != 200) {
 			return new LoginResultPair(LoginResult.REQUEST_ERROR);
 		}
 
@@ -150,27 +188,37 @@ public class RedditAccount {
 		try {
 
 			// TODO use the more general reddit error finder
-			final JsonBufferedArray errors = result.asObject().getObject("json").getArray("errors");
+			final JsonBufferedArray errors = result.asObject()
+					.getObject("json").getArray("errors");
 			errors.join();
-			if(errors.getCurrentItemCount() != 0) {
+			if (errors.getCurrentItemCount() != 0) {
 
-				for(final JsonValue v : errors) {
-					for(final JsonValue s : v.asArray()) {
+				for (final JsonValue v : errors) {
+					for (final JsonValue s : v.asArray()) {
 
-						// TODO handle unknown messages by concatenating all Reddit's strings
+						// TODO handle unknown messages by concatenating all
+						// Reddit's strings
 
-						if(s.getType() == JsonValue.Type.STRING) {
+						if (s.getType() == JsonValue.Type.STRING) {
 
 							Log.i("RR DEBUG ERROR", s.asString());
 
 							// lol, reddit api
-							if(s.asString().equalsIgnoreCase("WRONG_PASSWORD")
-									|| s.asString().equalsIgnoreCase("invalid password")
+							if (s.asString().equalsIgnoreCase("WRONG_PASSWORD")
+									|| s.asString().equalsIgnoreCase(
+											"invalid password")
 									|| s.asString().equalsIgnoreCase("passwd"))
-								return new LoginResultPair(LoginResult.WRONG_PASSWORD);
+								return new LoginResultPair(
+										LoginResult.WRONG_PASSWORD);
 
-							if(s.asString().contains("too much")) // also "RATELIMIT", but that's not as descriptive
-								return new LoginResultPair(LoginResult.RATELIMIT, s.asString());
+							if (s.asString().contains("too much")) // also
+																	// "RATELIMIT",
+																	// but
+																	// that's
+																	// not as
+																	// descriptive
+								return new LoginResultPair(
+										LoginResult.RATELIMIT, s.asString());
 						}
 					}
 				}
@@ -178,11 +226,12 @@ public class RedditAccount {
 				return new LoginResultPair(LoginResult.UNKNOWN_REDDIT_ERROR);
 			}
 
-			final JsonBufferedObject data = result.asObject().getObject("json").getObject("data");
+			final JsonBufferedObject data = result.asObject().getObject("json")
+					.getObject("data");
 
 			modhash = data.getString("modhash");
 
-		} catch(NullPointerException e) {
+		} catch (NullPointerException e) {
 			return new LoginResultPair(LoginResult.JSON_ERROR);
 		} catch (InterruptedException e) {
 			return new LoginResultPair(LoginResult.JSON_ERROR);
@@ -190,21 +239,25 @@ public class RedditAccount {
 			return new LoginResultPair(LoginResult.JSON_ERROR);
 		}
 
-		return new LoginResultPair(LoginResult.SUCCESS, new RedditAccount(username, modhash, cookies, 0), null);
+		return new LoginResultPair(LoginResult.SUCCESS, new RedditAccount(
+				username, modhash, cookies, 0), null);
 	}
 
 	public PersistentCookieStore getCookies() {
-		if(cookies == null) return null;
+		if (cookies == null)
+			return null;
 		return new PersistentCookieStore(cookies);
 	}
 
 	public byte[] getCookieBytes() {
-		if(cookies == null) return null;
+		if (cookies == null)
+			return null;
 		return cookies.toByteArray();
 	}
 
 	@Override
 	public boolean equals(final Object o) {
-		return o instanceof RedditAccount && username.equals(((RedditAccount) o).username);
+		return o instanceof RedditAccount
+				&& username.equals(((RedditAccount) o).username);
 	}
 }
